@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <HelloWorld/>
+    <select-picker></select-picker>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import SelectPicker from '@/components/SelectPicker'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SelectPicker
   }
 }
 </script>

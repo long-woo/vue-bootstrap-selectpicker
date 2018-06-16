@@ -6,6 +6,8 @@ import router from './router'
 // Nprogress
 import Nprogress from 'nprogress'
 
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 Vue.config.productionTip = false
 
 // use
