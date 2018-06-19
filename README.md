@@ -2,6 +2,8 @@
 
 > vue-bootstrap-selectpicker组件演示
 
+![img](https://raw.github.com/long-woo/vue-bootstrap-selectpicker/master/show.png)
+
 ## Build Setup
 
 ``` bash
