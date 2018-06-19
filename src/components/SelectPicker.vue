@@ -30,23 +30,40 @@ export default {
   },
   inheritAttrs: false,
   props: {
+    // 是否展开列表
     isDropdown: {
       type: Boolean,
       default: false
     },
+
+    // 多选
     multiple: {
       type: Boolean,
       default: false
     },
+
+    // 空数据显示的消息
     emptyText: {
       type: String,
       default: '没有匹配数据'
     },
-    dropdownData: Array,
+
+    // 搜索
     search: {
       type: Boolean,
       default: false
     },
+
+    // 显示项长度，超过则出现滚动条
+    size: {
+      type: Number,
+      default: 6
+    },
+
+    // 数据源
+    dropdownData: Array,
+
+    // 默认选择项，支持Array和String
     value: [Array, String]
   },
   computed: {
@@ -86,7 +103,6 @@ export default {
         this.isOpen = false
       }
 
-      console.log(index)
       // 非多选或者已选择时，先移除
       if (!this.multiple || index > -1) {
         this.chooseData.splice(index, 1)

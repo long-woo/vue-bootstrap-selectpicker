@@ -22,7 +22,7 @@
       </div>
       <div class="form-group">
         <h4>演示-4</h4>
-        <p>多选，<code>key</code>、<code>value</code>形式的数组</p>
+        <p>多选，<code>key</code>、<code>value</code>形式的数组，支持<code>disabled</code>配置</p>
         <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @change="change4"></select-picker>
         <p class="alert alert-info mt-2">结果：{{demo4}}</p>
       </div>
