@@ -4,7 +4,12 @@
       <input class="form-control" type="text" :readonly="!search" v-model="chooseText" v-bind="$attrs" v-on="listeners">
     </div>
     <div class="dropdown-menu" v-if="filterData.length">
-      <a class="dropdown-item" href="javascript:;" :class="[multiple && (chooseText.indexOf(item.text || item) > -1) ? 'checked' : (chooseText.indexOf(item.text || item) > -1) ? 'active' : '', { 'disabled': item.disabled }]" v-for="(item, index) in filterData" :key="index" @click="chooseItem(item)">{{item.text || item}}</a>
+      <a class="dropdown-item" href="javascript:;"
+        :class="[
+                  multiple && (chooseText.indexOf(item.text || item) > -1) ? 'checked' : (chooseText.indexOf(item.text || item) > -1) ? 'active' : '',
+                  { 'disabled': item.disabled }
+                ]"
+        v-for="(item, index) in filterData" :key="index" @click="chooseItem(item)">{{item.text || item}}</a>
     </div>
     <div class="dropdown-menu" v-else>
       <a class="dropdown-item disabled">{{emptyText}}</a>
@@ -75,12 +80,13 @@ export default {
       if (item.disabled) return
 
       const itemText = item.text || item
-      const index = this.chooseData.indexOf(itemText)
+      const index = this.chooseData.findIndex((value) => (value.text || value) === itemText)
 
       if (!this.multiple) {
         this.isOpen = false
       }
 
+      console.log(index)
       // 非多选或者已选择时，先移除
       if (!this.multiple || index > -1) {
         this.chooseData.splice(index, 1)

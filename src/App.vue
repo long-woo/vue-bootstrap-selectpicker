@@ -20,6 +20,12 @@
         <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." multiple v-model="demo3" @change="change3"></select-picker>
         <p class="alert alert-info mt-2">结果：{{demo3}}</p>
       </div>
+      <div class="form-group">
+        <h4>演示-4</h4>
+        <p>多选，<code>key</code>、<code>value</code>形式的数组</p>
+        <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @change="change4"></select-picker>
+        <p class="alert alert-info mt-2">结果：{{demo4}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +46,8 @@ export default {
         { text: 'jQuery', value: 'jquery', disabled: true }
       ],
       demo2: '',
-      demo3: ''
+      demo3: '',
+      demo4: ''
     }
   },
   components: {
@@ -62,6 +69,10 @@ export default {
     change3 (data, text) {
       this.demo3 = text
       this.consoleInfo(data, 3)
+    },
+    change4 (data, text) {
+      this.demo4 = text
+      this.consoleInfo(data, 4)
     }
   }
 }
