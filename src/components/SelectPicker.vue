@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown bootstrap-select" :class="{'show': isOpen}">
     <div class="dropdown-toggle">
-      <input class="form-control" type="text" :readonly="!search" v-model="chooseText" v-bind="$attrs" v-on="listeners">
+      <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
     <div class="dropdown-menu" v-if="filterData.length">
       <a class="dropdown-item" href="javascript:;"
@@ -63,15 +63,27 @@ export default {
     // 数据源
     dropdownData: Array,
 
-    // 默认选择项，支持Array和String
+    // 默认值，支持Array和String
     value: [Array, String]
   },
   computed: {
     listeners () {
       return {
         ...this.$listeners,
-        click: event => {
+        focus: event => {
+          // 如果启用搜索，则一直显示
+          if (this.search) {
+            this.showDropdown()
+            return
+          }
+
           this.toggleDropdown()
+        },
+
+        input: event => {
+          const value = event.target.value
+
+          this._selectInput(value)
         }
       }
     }
@@ -83,6 +95,11 @@ export default {
     // 点击dropdown元素后，显示/隐藏选项列表
     toggleDropdown () {
       this.isOpen = !this.isOpen
+    },
+
+    // 显示选项列表
+    showDropdown () {
+      this.isOpen = true
     },
 
     // 点击元素外隐藏
@@ -121,6 +138,20 @@ export default {
       const chooseText = this.chooseText.toString()
 
       this.$emit('change', this.chooseData, chooseText)
+    },
+
+    // 搜索，根据输入的关键字帅选
+    _selectInput (value) {
+      this.filterData = this.dropdownData.reduce((prevValue, currentValue) => {
+        const data = currentValue.text || currentValue
+        if (data.toLowerCase().includes(value)) {
+          prevValue.push(data)
+        }
+
+        return prevValue
+      }, [])
+
+      this.$emit('input', value)
     }
   }
 }

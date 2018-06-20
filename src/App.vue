@@ -26,6 +26,12 @@
         <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @change="change4"></select-picker>
         <p class="alert alert-info mt-2">结果：{{demo4}}</p>
       </div>
+      <div class="form-group">
+        <h4>演示-5</h4>
+        <p>搜索并单选，非<code>key</code>、<code>value</code>形式的数组</p>
+        <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." search v-model="demo5" @change="change5"></select-picker>
+        <p class="alert alert-info mt-2">结果：{{demo5}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -47,7 +53,8 @@ export default {
       ],
       demo2: '',
       demo3: '',
-      demo4: ''
+      demo4: '',
+      demo5: ''
     }
   },
   components: {
@@ -73,6 +80,10 @@ export default {
     change4 (data, text) {
       this.demo4 = text
       this.consoleInfo(data, 4)
+    },
+    change5 (data, text) {
+      this.demo5 = text
+      this.consoleInfo(data, 5)
     }
   }
 }
