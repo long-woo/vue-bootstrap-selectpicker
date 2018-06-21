@@ -6,7 +6,7 @@
     <div class="dropdown-menu" v-if="filterData.length">
       <a class="dropdown-item" href="javascript:;"
         :class="[
-                  multiple && (chooseText.indexOf(item.text || item) > -1) ? 'checked' : (chooseText.indexOf(item.text || item) > -1) ? 'active' : '',
+                  multiple && (chooseText.indexOf(item.text || item) > -1) ? 'checked' : ((chooseText.indexOf(item.text || item) > -1) || activeIndex === index) && !item.disabled ? 'active' : '',
                   { 'disabled': item.disabled }
                 ]"
         v-for="(item, index) in filterData" :key="index" @click="chooseItem(item)">{{item.text || item}}</a>
@@ -25,7 +25,8 @@ export default {
       isOpen: this.isDropdown,
       filterData: this.dropdownData,
       chooseText: this.value,
-      chooseData: []
+      chooseData: [],
+      activeIndex: -1
     }
   },
   inheritAttrs: false,
@@ -70,26 +71,47 @@ export default {
     listeners () {
       return {
         ...this.$listeners,
+        click: event => {
+          if (!this.search) {
+            this.toggleDropdown()
+          }
+        },
+
         focus: event => {
           // 如果启用搜索，则一直显示
           if (this.search) {
             this.showDropdown()
-            return
           }
-
-          this.toggleDropdown()
         },
 
         input: event => {
           const value = event.target.value
 
           this._selectInput(value)
+        },
+
+        keydown: event => {
+          switch (event.keyCode) {
+            case 13:
+              // 回车键
+              break
+            case 38:
+            case 40:
+              const keyName = event.keyCode === 38 ? 'UP' : 'DOWN'
+
+              this._selectArrow(keyName)
+              event.preventDefault()
+              break
+          }
         }
       }
     }
   },
   mounted () {
     document.addEventListener('click', this.hideDropdown, false)
+  },
+  destroyed () {
+    document.removeEventListener('click', this.hideDropdown, false)
   },
   methods: {
     // 点击dropdown元素后，显示/隐藏选项列表
@@ -144,6 +166,7 @@ export default {
     _selectInput (value) {
       this.filterData = this.dropdownData.reduce((prevValue, currentValue) => {
         const data = currentValue.text || currentValue
+
         if (data.toLowerCase().includes(value)) {
           prevValue.push(data)
         }
@@ -152,6 +175,33 @@ export default {
       }, [])
 
       this.$emit('input', value)
+    },
+
+    // 方向键上、下
+    _selectArrow (arrow) {
+      let index = this.activeIndex
+      const itemCount = this.filterData.length - 1
+      let item = {}
+
+      if (arrow === 'UP') {
+        index--
+
+        if (index < 0) index = itemCount
+      } else if (arrow === 'DOWN') {
+        index++
+
+        if (index > itemCount) index = 0
+      }
+
+      item = this.filterData[index] || {}
+
+      if (item.disabled) {
+        // this._selectArrow(arrow)
+        // return
+      }
+      console.log(index)
+      console.log('---------------')
+      this.activeIndex = index
     }
   }
 }
