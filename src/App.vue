@@ -47,7 +47,7 @@ export default {
       demo1: '',
       dropdownData2: [
         { text: 'Vue', value: 'vue' },
-        { text: 'React', value: 'react' },
+        { text: 'React', value: 'react', disabled: false },
         { text: 'Angular', value: 'angular' },
         { text: 'jQuery', value: 'jquery', disabled: true }
       ],

@@ -5,11 +5,10 @@
     </div>
     <div class="dropdown-menu" v-if="filterData.length">
       <a class="dropdown-item" href="javascript:;"
-        :class="[
-                  multiple && (chooseText.indexOf(item.text || item) > -1) ? 'checked' : ((chooseText.indexOf(item.text || item) > -1) || activeIndex === index) && !item.disabled ? 'active' : '',
-                  { 'disabled': item.disabled }
-                ]"
-        v-for="(item, index) in filterData" :key="index" @click="chooseItem(item)">{{item.text || item}}</a>
+        :class="{ 'disabled': item.disabled,
+                  'checked':  multiple && (chooseText.indexOf(item.text || item) > -1),
+                  'active':  (activeIndex === index) && !item.disabled }"
+        v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{item.text || item}}</a>
     </div>
     <div class="dropdown-menu" v-else>
       <a class="dropdown-item disabled">{{emptyText}}</a>
@@ -26,7 +25,8 @@ export default {
       filterData: this.dropdownData,
       chooseText: this.value,
       chooseData: [],
-      activeIndex: -1
+      activeIndex: -1,
+      arrowKey: ''
     }
   },
   inheritAttrs: false,
@@ -68,6 +68,18 @@ export default {
     value: [Array, String]
   },
   computed: {
+    // 如果配置项全部为`disabled`，禁止方向键选择
+    disabledArrow () {
+      const disabledCount = this.filterData.reduce((prevValue, currentValue) => {
+        if (currentValue.disabled) prevValue++
+
+        return prevValue
+      }, 0)
+
+      return disabledCount === this.filterData.length
+    },
+
+    // 注册事件
     listeners () {
       return {
         ...this.$listeners,
@@ -94,6 +106,10 @@ export default {
           switch (event.keyCode) {
             case 13:
               // 回车键
+              const index = this.activeIndex
+              const item = this.filterData[index]
+
+              this.chooseItem(item, index)
               break
             case 38:
             case 40:
@@ -107,6 +123,13 @@ export default {
       }
     }
   },
+  watch: {
+    activeIndex (value) {
+      const item = this.filterData[value] || {}
+
+      if (item.disabled) this._selectArrow(this.arrowKey)
+    }
+  },
   mounted () {
     document.addEventListener('click', this.hideDropdown, false)
   },
@@ -117,6 +140,8 @@ export default {
     // 点击dropdown元素后，显示/隐藏选项列表
     toggleDropdown () {
       this.isOpen = !this.isOpen
+
+      if (!this.isOpen) this.activeIndex = -1
     },
 
     // 显示选项列表
@@ -127,12 +152,13 @@ export default {
     // 点击元素外隐藏
     hideDropdown (event) {
       if (!this.$el.contains(event.target)) {
+        this.activeIndex = -1
         this.isOpen = false
       }
     },
 
     // 选择项
-    chooseItem (item) {
+    chooseItem (item, itemIndex) {
       if (item.disabled) return
 
       const itemText = item.text || item
@@ -140,6 +166,7 @@ export default {
 
       if (!this.multiple) {
         this.isOpen = false
+        this.activeIndex = itemIndex
       }
 
       // 非多选或者已选择时，先移除
@@ -181,7 +208,8 @@ export default {
     _selectArrow (arrow) {
       let index = this.activeIndex
       const itemCount = this.filterData.length - 1
-      let item = {}
+
+      if (this.disabledArrow) return
 
       if (arrow === 'UP') {
         index--
@@ -193,15 +221,8 @@ export default {
         if (index > itemCount) index = 0
       }
 
-      item = this.filterData[index] || {}
-
-      if (item.disabled) {
-        // this._selectArrow(arrow)
-        // return
-      }
-      console.log(index)
-      console.log('---------------')
       this.activeIndex = index
+      this.arrowKey = arrow
     }
   }
 }
