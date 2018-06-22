@@ -125,6 +125,8 @@ export default {
   },
   watch: {
     activeIndex (value) {
+      // 当该值发生变化，获取当前项是不是`disable`的
+      // 如果为`disabled`时，自动模拟按键，直到找到非`disabled`的项
       const item = this.filterData[value] || {}
 
       if (item.disabled) this._selectArrow(this.arrowKey)
