@@ -7,6 +7,7 @@
 ## 依赖库
 
 > Vue.js(v2.20+)
+
 > Bootstrap(v4.0.0+) 推荐使用 `Bootstrap-Vue` 这个库
 
 ## Build Setup
