@@ -104,15 +104,15 @@ export default {
 
         keydown: event => {
           switch (event.keyCode) {
-            case 13:
-              // 回车键
-              const index = this.activeIndex
-              const item = this.filterData[index]
+            case 13: // enter
+              const index = this.activeIndex < 0 ? 0 : this.activeIndex
+              const item = this.filterData[index] || {}
 
               this.chooseItem(item, index)
+              event.preventDefault()
               break
-            case 38:
-            case 40:
+            case 38: // up
+            case 40: // down
               const keyName = event.keyCode === 38 ? 'UP' : 'DOWN'
 
               this._selectArrow(keyName)
@@ -121,15 +121,6 @@ export default {
           }
         }
       }
-    }
-  },
-  watch: {
-    activeIndex (value) {
-      // 当该值发生变化，获取当前项是不是`disable`的
-      // 如果为`disabled`时，自动模拟按键，直到找到非`disabled`的项
-      const item = this.filterData[value] || {}
-
-      if (item.disabled) this._selectArrow(this.arrowKey)
     }
   },
   mounted () {
@@ -168,7 +159,6 @@ export default {
 
       if (!this.multiple) {
         this.isOpen = false
-        this.activeIndex = itemIndex
       }
 
       // 非多选或者已选择时，先移除
@@ -193,17 +183,25 @@ export default {
 
     // 搜索，根据输入的关键字帅选
     _selectInput (value) {
-      this.filterData = this.dropdownData.reduce((prevValue, currentValue) => {
-        const data = currentValue.text || currentValue
+      this.chooseText = value
+      value = value.toLowerCase()
 
-        if (data.toLowerCase().includes(value)) {
-          prevValue.push(data)
-        }
+      if (value) {
+        this.filterData = this.dropdownData.reduce((prevValue, currentValue) => {
+          const data = currentValue.text || currentValue
 
-        return prevValue
-      }, [])
+          if (data.toLowerCase().includes(value)) {
+            prevValue.push(data)
+          }
 
-      this.$emit('input', value)
+          return prevValue
+        }, [])
+      } else {
+        this.filterData = this.dropdownData
+      }
+
+      this.showDropdown()
+      this.$emit('input', this.chooseText)
     },
 
     // 方向键上、下
@@ -211,6 +209,7 @@ export default {
       let index = this.activeIndex
       const itemCount = this.filterData.length - 1
 
+      // 如果项全部为`disabled`，直接跳出
       if (this.disabledArrow) return
 
       if (arrow === 'UP') {
@@ -225,6 +224,17 @@ export default {
 
       this.activeIndex = index
       this.arrowKey = arrow
+      this.autoFindItem(index)
+    },
+
+    // 当该值发生变化，获取当前项是不是`disable`的
+    // 如果为`disabled`时，自动模拟按键，直到找到非`disabled`的项
+    autoFindItem (index) {
+      if (index < 0) return
+
+      const item = this.filterData[index] || {}
+
+      if (item.disabled) this._selectArrow(this.arrowKey)
     }
   }
 }
