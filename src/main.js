@@ -8,10 +8,15 @@ import Nprogress from 'nprogress'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+import 'prismjs/themes/prism-tomorrow.css'
+import Prism from 'prismjs'
+
 Vue.config.productionTip = false
 
 // use
 Vue.nprogress = Vue.prototype.$nprogress = Nprogress
+
+Prism.highlightAll()
 
 /* eslint-disable no-new */
 new Vue({

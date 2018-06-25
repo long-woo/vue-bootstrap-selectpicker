@@ -152,22 +152,20 @@ export default {
 
     // 选择项
     chooseItem (item, itemIndex) {
-      if (item.disabled) return
+      if (item.disabled || !this.isOpen) return
 
       const itemText = item.text || item
       const index = this.chooseData.findIndex((value) => (value.text || value) === itemText)
 
       if (!this.multiple) {
         this.isOpen = false
-      }
-
-      // 非多选或者已选择时，先移除
-      if (!this.multiple || index > -1) {
-        this.chooseData.splice(index, 1)
-      }
-
-      if (index < 0) {
-        this.chooseData.push(item)
+        this.chooseData = [].concat(item)
+      } else {
+        if (index > -1) {
+          this.chooseData.splice(index, 1)
+        } else {
+          this.chooseData.push(item)
+        }
       }
 
       this.chooseText = this.chooseData.reduce((prevValue, currentValue) => {
@@ -178,7 +176,8 @@ export default {
 
       const chooseText = this.chooseText.toString()
 
-      this.$emit('change', this.chooseData, chooseText)
+      this.activeIndex = itemIndex
+      this.$emit('changeSelect', this.chooseData, chooseText)
     },
 
     // 搜索，根据输入的关键字帅选
@@ -200,6 +199,7 @@ export default {
         this.filterData = this.dropdownData
       }
 
+      this.activeIndex = -1
       this.showDropdown()
       this.$emit('input', this.chooseText)
     },

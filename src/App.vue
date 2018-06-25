@@ -1,36 +1,82 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <div class="container text-left">
-      <div class="form-group">
-        <h4>演示-1</h4>
-        <p>单选，非<code>key</code>、<code>value</code>形式的数组</p>
-        <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." v-model="demo1" @change="change1"></select-picker>
-        <p class="alert alert-info mt-2">结果：{{demo1}}</p>
+  <div id="app" class="container">
+    <div class="row">
+      <div class="col-md-3">
+
       </div>
-      <div class="form-group">
-        <h4>演示-2</h4>
-        <p>单选，<code>key</code>、<code>value</code>形式的数组，支持<code>disabled</code>配置</p>
-        <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." v-model="demo2" @change="change2"></select-picker>
-        <p class="alert alert-info mt-2">结果：{{demo2}}</p>
-      </div>
-      <div class="form-group">
-        <h4>演示-3</h4>
-        <p>多选，非<code>key</code>、<code>value</code>形式的数组</p>
-        <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." multiple v-model="demo3" @change="change3"></select-picker>
-        <p class="alert alert-info mt-2">结果：{{demo3}}</p>
-      </div>
-      <div class="form-group">
-        <h4>演示-4</h4>
-        <p>多选，<code>key</code>、<code>value</code>形式的数组，支持<code>disabled</code>配置</p>
-        <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @change="change4"></select-picker>
-        <p class="alert alert-info mt-2">结果：{{demo4}}</p>
-      </div>
-      <div class="form-group">
-        <h4>演示-5</h4>
-        <p>搜索并单选，非<code>key</code>、<code>value</code>形式的数组</p>
-        <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." search v-model="demo5" @change="change5"></select-picker>
-        <p class="alert alert-info mt-2">结果：{{demo5}}</p>
+      <div class="col-md-9 text-left">
+        <div class="form-group">
+          <h4>演示-1</h4>
+          <p>单选，非
+            <code>key</code>、
+            <code>value</code>形式的数组</p>
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." v-model="demo1" @changeSelect="change1" />
+          <p class="alert alert-info mt-2">结果：{{demo1}}</p>
+          <pre><code class="language-html">&lt;template></code>
+  <code class="language-html">&lt;div></code>
+    <code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code>
+  <code class="language-html">&lt;/div></code>
+<code class="language-html">&lt;/template></code>
+
+<code class="language-html">&lt;script></code>
+<pre><code class="language-js">export default {</code>
+  <code class="language-js">data () {</code>
+    <code class="language-js">return {</code>
+      <code class="language-js">dropdownData: ['Vue', 'React', 'Angular', 'jQuery'],</code>
+      <code class="language-js">defaultSelectText: ''</code>
+    <code>}</code>
+  <code>},</code>
+  <code>methods: {</code>
+    <code class="language-js">changeSelect (data, text) {</code>
+      <code class="language-js">console.log(data)</code>
+      <code class="language-js">this.defaultSelectText = text</code>
+    <code>}</code>
+  <code>}</code>
+<code>}</code></pre><code class="language-html">&lt;/script></code></pre>
+        </div>
+        <div class="form-group">
+          <h4>演示-2</h4>
+          <p>单选，
+            <code>key</code>、
+            <code>value</code>形式的数组，支持
+            <code>disabled</code>配置</p>
+          <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." v-model="demo2" @changeSelect="change2" />
+          <p class="alert alert-info mt-2">结果：{{demo2}}</p>
+        </div>
+        <div class="form-group">
+          <h4>演示-3</h4>
+          <p>多选，非
+            <code>key</code>、
+            <code>value</code>形式的数组</p>
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." multiple v-model="demo3" @changeSelect="change3" />
+          <p class="alert alert-info mt-2">结果：{{demo3}}</p>
+        </div>
+        <div class="form-group">
+          <h4>演示-4</h4>
+          <p>多选，
+            <code>key</code>、
+            <code>value</code>形式的数组，支持
+            <code>disabled</code>配置</p>
+          <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @changeSelect="change4" />
+          <p class="alert alert-info mt-2">结果：{{demo4}}</p>
+        </div>
+        <div class="form-group">
+          <h4>演示-5</h4>
+          <p>搜索并单选，非
+            <code>key</code>、
+            <code>value</code>形式的数组</p>
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." search v-model="demo5" @changeSelect="change5" />
+          <p class="alert alert-info mt-2">结果：{{demo5}}</p>
+        </div>
+        <div class="form-group">
+          <h4>演示-6</h4>
+          <p>搜索并单选，
+            <code>key</code>、
+            <code>value</code>形式的数组，支持
+            <code>disabled</code>配置</p>
+          <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." search multiple v-model="demo6" @changeSelect="change6" />
+          <p class="alert alert-info mt-2">结果：{{demo6}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -44,17 +90,18 @@ export default {
   data () {
     return {
       dropdownData1: ['Vue', 'React', 'Angular', 'jQuery'],
-      demo1: '',
       dropdownData2: [
         { text: 'Vue', value: 'vue' },
         { text: 'React', value: 'react', disabled: false },
         { text: 'Angular', value: 'angular' },
         { text: 'jQuery', value: 'jquery', disabled: true }
       ],
+      demo1: '',
       demo2: '',
       demo3: '',
       demo4: '',
-      demo5: ''
+      demo5: '',
+      demo6: ''
     }
   },
   components: {
@@ -84,6 +131,10 @@ export default {
     change5 (data, text) {
       this.demo5 = text
       this.consoleInfo(data, 5)
+    },
+    change6 (data, text) {
+      this.demo6 = text
+      this.consoleInfo(data, 6)
     }
   }
 }
