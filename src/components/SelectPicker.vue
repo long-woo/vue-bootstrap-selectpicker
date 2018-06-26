@@ -1,24 +1,22 @@
 <template>
-  <div class="dropdown bootstrap-select" :class="{'show': isOpen}">
+  <div class="dropdown bootstrap-dropdown" :class="{ 'dropup': upShow, 'show': isOpen }">
     <div class="dropdown-toggle">
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
-    <div class="dropdown-menu" v-if="filterData.length">
+    <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height}">
       <a class="dropdown-item" href="javascript:;"
         :class="{ 'disabled': item.disabled,
                   'checked':  multiple && (chooseText.indexOf(item.text || item) > -1),
                   'active':  (activeIndex === index) && !item.disabled }"
         v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{item.text || item}}</a>
-    </div>
-    <div class="dropdown-menu" v-else>
-      <a class="dropdown-item disabled">{{emptyText}}</a>
+      <a class="dropdown-item disabled" v-if="!filterData.length">{{emptyText}}</a>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SelectPicker',
+  name: 'DropdownPicker',
   data () {
     return {
       isOpen: this.isDropdown,
@@ -26,7 +24,9 @@ export default {
       chooseText: this.value,
       chooseData: [],
       activeIndex: -1,
-      arrowKey: ''
+      arrowKey: '',
+      dropdownRect: {},
+      upShow: false
     }
   },
   inheritAttrs: false,
@@ -99,7 +99,7 @@ export default {
         input: event => {
           const value = event.target.value
 
-          this._selectInput(value)
+          this._dropdownInput(value)
         },
 
         keydown: event => {
@@ -115,7 +115,7 @@ export default {
             case 40: // down
               const keyName = event.keyCode === 38 ? 'UP' : 'DOWN'
 
-              this._selectArrow(keyName)
+              this._dropdownArrow(keyName)
               event.preventDefault()
               break
           }
@@ -124,12 +124,24 @@ export default {
     }
   },
   mounted () {
-    document.addEventListener('click', this.hideDropdown, false)
+    this.initDropdown()
   },
   destroyed () {
+    // 组件销毁时，移除监听的点击事件
     document.removeEventListener('click', this.hideDropdown, false)
   },
   methods: {
+    // 初始化dropdown
+    initDropdown () {
+      const dropdownRect = this.$refs.dropdownItemBox.getBoundingClientRect()
+
+      this.upShow = (dropdownRect.bottom + window.scrollY) > document.body.clientHeight
+      this.dropdownRect = dropdownRect
+
+      // 监听点击事件，点击组件外，则隐藏下拉
+      document.addEventListener('click', this.hideDropdown, false)
+    },
+
     // 点击dropdown元素后，显示/隐藏选项列表
     toggleDropdown () {
       this.isOpen = !this.isOpen
@@ -181,7 +193,7 @@ export default {
     },
 
     // 搜索，根据输入的关键字帅选
-    _selectInput (value) {
+    _dropdownInput (value) {
       this.chooseText = value
       value = value.toLowerCase()
 
@@ -205,7 +217,7 @@ export default {
     },
 
     // 方向键上、下
-    _selectArrow (arrow) {
+    _dropdownArrow (arrow) {
       let index = this.activeIndex
       const itemCount = this.filterData.length - 1
 
@@ -234,27 +246,37 @@ export default {
 
       const item = this.filterData[index] || {}
 
-      if (item.disabled) this._selectArrow(this.arrowKey)
+      if (item.disabled) this._dropdownArrow(this.arrowKey)
     }
   }
 }
 </script>
 
 <style scoped>
-.bootstrap-select {
+.bootstrap-dropdown {
   width: 13.7rem;
 }
 
-.bootstrap-select .dropdown-toggle .form-control {
+.bootstrap-dropdown .dropdown-toggle .form-control {
   text-overflow: ellipsis;
   padding-right: 1rem;
 }
 
-.bootstrap-select .dropdown-menu {
+.bootstrap-dropdown .dropdown-menu {
   min-width: 100%;
+  margin-bottom: 1rem;
 }
 
-.bootstrap-select.show .dropdown-menu{
+.bootstrap-dropdown.dropup .dropdown-menu {
+  margin-bottom: 0.125rem;
+}
+
+.bootstrap-dropdown .dropdown-menu.visibility {
+  display: block;
+  visibility: hidden;
+}
+
+.bootstrap-dropdown.show .dropdown-menu{
   display: block;
 }
 
