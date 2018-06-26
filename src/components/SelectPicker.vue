@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown bootstrap-dropdown" :class="{ 'dropup': upShow, 'show': isOpen }">
+  <div class="dropdown bootstrap-select" :class="{ 'dropup': upShow, 'show': isOpen }">
     <div class="dropdown-toggle">
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'DropdownPicker',
+  name: 'SelectPicker',
   data () {
     return {
       isOpen: this.isDropdown,
@@ -115,7 +115,7 @@ export default {
             case 40: // down
               const keyName = event.keyCode === 38 ? 'UP' : 'DOWN'
 
-              this._dropdownArrow(keyName)
+              this._selectArrow(keyName)
               event.preventDefault()
               break
           }
@@ -124,15 +124,15 @@ export default {
     }
   },
   mounted () {
-    this.initDropdown()
+    this.initSelect()
   },
   destroyed () {
     // 组件销毁时，移除监听的点击事件
     document.removeEventListener('click', this.hideDropdown, false)
   },
   methods: {
-    // 初始化dropdown
-    initDropdown () {
+    // 初始化
+    initSelect () {
       const dropdownRect = this.$refs.dropdownItemBox.getBoundingClientRect()
 
       this.upShow = (dropdownRect.bottom + window.scrollY) > document.body.clientHeight
@@ -217,7 +217,7 @@ export default {
     },
 
     // 方向键上、下
-    _dropdownArrow (arrow) {
+    _selectArrow (arrow) {
       let index = this.activeIndex
       const itemCount = this.filterData.length - 1
 
@@ -246,37 +246,37 @@ export default {
 
       const item = this.filterData[index] || {}
 
-      if (item.disabled) this._dropdownArrow(this.arrowKey)
+      if (item.disabled) this._selectArrow(this.arrowKey)
     }
   }
 }
 </script>
 
 <style scoped>
-.bootstrap-dropdown {
+.bootstrap-select {
   width: 13.7rem;
 }
 
-.bootstrap-dropdown .dropdown-toggle .form-control {
+.bootstrap-select .dropdown-toggle .form-control {
   text-overflow: ellipsis;
   padding-right: 1rem;
 }
 
-.bootstrap-dropdown .dropdown-menu {
+.bootstrap-select .dropdown-menu {
   min-width: 100%;
   margin-bottom: 1rem;
 }
 
-.bootstrap-dropdown.dropup .dropdown-menu {
+.bootstrap-select.dropup .dropdown-menu {
   margin-bottom: 0.125rem;
 }
 
-.bootstrap-dropdown .dropdown-menu.visibility {
+.bootstrap-select .dropdown-menu.visibility {
   display: block;
   visibility: hidden;
 }
 
-.bootstrap-dropdown.show .dropdown-menu{
+.bootstrap-select.show .dropdown-menu{
   display: block;
 }
 

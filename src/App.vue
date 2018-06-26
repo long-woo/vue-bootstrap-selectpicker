@@ -10,11 +10,11 @@
           <p>单选，非
             <code>key</code>、
             <code>value</code>形式的数组</p>
-          <dropdown-picker :dropdown-data="dropdownData1" placeholder="请选择..." v-model="demo1" @changeSelect="change1" />
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." v-model="demo1" @changeSelect="change1" />
           <p class="alert alert-info mt-2">结果：{{demo1}}</p>
           <pre><code class="language-html">&lt;template></code>
   <code class="language-html">&lt;div></code>
-    <code class="language-html">&lt;dropdown-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code>
+    <code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code>
   <code class="language-html">&lt;/div></code>
 <code class="language-html">&lt;/template></code>
 
@@ -41,11 +41,11 @@
             <code>key</code>、
             <code>value</code>形式的数组，支持
             <code>disabled</code>配置</p>
-          <dropdown-picker :dropdown-data="dropdownData2" placeholder="请选择..." v-model="demo2" @changeSelect="change2" />
+          <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." v-model="demo2" @changeSelect="change2" />
           <p class="alert alert-info mt-2">结果：{{demo2}}</p>
           <pre><code class="language-html">&lt;template></code>
   <code class="language-html">&lt;div></code>
-    <code class="language-html">&lt;dropdown-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code>
+    <code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code>
   <code class="language-html">&lt;/div></code>
 <code class="language-html">&lt;/template></code>
 
@@ -76,7 +76,7 @@
           <p>多选，非
             <code>key</code>、
             <code>value</code>形式的数组</p>
-          <dropdown-picker :dropdown-data="dropdownData1" placeholder="请选择..." multiple v-model="demo3" @changeSelect="change3" />
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." multiple v-model="demo3" @changeSelect="change3" />
           <p class="alert alert-info mt-2">结果：{{demo3}}</p>
         </div>
         <div class="form-group">
@@ -85,7 +85,7 @@
             <code>key</code>、
             <code>value</code>形式的数组，支持
             <code>disabled</code>配置</p>
-          <dropdown-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @changeSelect="change4" />
+          <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." multiple v-model="demo4" @changeSelect="change4" />
           <p class="alert alert-info mt-2">结果：{{demo4}}</p>
         </div>
         <div class="form-group">
@@ -93,7 +93,7 @@
           <p>搜索并单选，非
             <code>key</code>、
             <code>value</code>形式的数组</p>
-          <dropdown-picker :dropdown-data="dropdownData1" placeholder="请选择..." search v-model="demo5" @changeSelect="change5" />
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." search v-model="demo5" @changeSelect="change5" />
           <p class="alert alert-info mt-2">结果：{{demo5}}</p>
         </div>
         <div class="form-group">
@@ -102,13 +102,13 @@
             <code>key</code>、
             <code>value</code>形式的数组，支持
             <code>disabled</code>配置</p>
-          <dropdown-picker :dropdown-data="dropdownData2" placeholder="请选择..." search multiple v-model="demo6" @changeSelect="change6" />
+          <select-picker :dropdown-data="dropdownData2" placeholder="请选择..." search multiple v-model="demo6" @changeSelect="change6" />
           <p class="alert alert-info mt-2">结果：{{demo6}}</p>
         </div>
         <div class="form-group">
           <h4>演示-7</h4>
           <p><code>size</code>属性，超过该值显示滚动条</p>
-          <dropdown-picker :dropdown-data="dropdownData1" placeholder="请选择..." :size="3" v-model="demo7" @changeSelect="change7" />
+          <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." :size="3" v-model="demo7" @changeSelect="change7" />
           <p class="alert alert-info mt-2">结果：{{demo7}}</p>
         </div>
       </div>
@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import DropdownPicker from '@/components/SelectPicker'
+import SelectPicker from '@/components/SelectPicker'
 
 export default {
   name: 'App',
@@ -140,7 +140,7 @@ export default {
     }
   },
   components: {
-    DropdownPicker
+    SelectPicker
   },
   methods: {
     consoleInfo (data, example) {
