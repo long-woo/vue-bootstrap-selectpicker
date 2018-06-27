@@ -73,15 +73,37 @@
         </div>
         <div class="form-group">
           <h4>演示-3</h4>
-          <p>多选，非
+          <p>多选，只需添加<code>multiple</code>属性，非
             <code>key</code>、
             <code>value</code>形式的数组</p>
           <select-picker :dropdown-data="dropdownData1" placeholder="请选择..." multiple v-model="demo3" @changeSelect="change3" />
           <p class="alert alert-info mt-2">结果：{{demo3}}</p>
+          <pre><code class="language-html">&lt;template></code>
+  <code class="language-html">&lt;div></code>
+    <code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." multiple v-model="defaultSelectText" @changeSelect="changeSelect" /></code>
+  <code class="language-html">&lt;/div></code>
+<code class="language-html">&lt;/template></code>
+
+<code class="language-html">&lt;script></code>
+<code class="language-js">export default {</code>
+  <code class="language-js">data () {</code>
+    <code class="language-js">return {</code>
+      <code class="language-js">dropdownData: ['Vue', 'React', 'Angular', 'jQuery'],</code>
+      <code class="language-js">defaultSelectText: ''</code>
+    <code>}</code>
+  <code>},</code>
+  <code>methods: {</code>
+    <code class="language-js">changeSelect (data, text) {</code>
+      <code class="language-js">console.log(data)</code>
+      <code class="language-js">this.defaultSelectText = text</code>
+    <code>}</code>
+  <code>}</code>
+<code>}</code>
+<code class="language-html">&lt;/script></code></pre>
         </div>
         <div class="form-group">
           <h4>演示-4</h4>
-          <p>多选，
+          <p>多选，只需添加<code>multiple</code>属性，
             <code>key</code>、
             <code>value</code>形式的数组，支持
             <code>disabled</code>配置</p>
@@ -123,6 +145,7 @@ export default {
   name: 'App',
   data () {
     return {
+      dropdownData: ['Vue', 'React', 'Angular'],
       dropdownData1: ['Vue', 'React', 'Angular', 'jQuery'],
       dropdownData2: [
         { text: 'Vue', value: 'vue' },

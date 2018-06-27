@@ -3,13 +3,13 @@
     <div class="dropdown-toggle">
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
-    <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height}">
+    <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height }">
       <a class="dropdown-item" href="javascript:;"
         :class="{ 'disabled': item.disabled,
                   'checked':  multiple && (chooseText.indexOf(item.text || item) > -1),
                   'active':  (activeIndex === index) && !item.disabled }"
-        v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{item.text || item}}</a>
-      <a class="dropdown-item disabled" v-if="!filterData.length">{{emptyText}}</a>
+        v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{ item.text || item }}</a>
+      <a class="dropdown-item disabled" v-show="!filterData.length">{{emptyText}}</a>
     </div>
   </div>
 </template>
@@ -55,10 +55,10 @@ export default {
       default: false
     },
 
-    // 显示项长度，超过则出现滚动条
+    // 可视数，超过将显示滚动条
     size: {
       type: Number,
-      default: 6
+      default: 0
     },
 
     // 数据源
@@ -134,6 +134,15 @@ export default {
     // 初始化
     initSelect () {
       const dropdownRect = this.$refs.dropdownItemBox.getBoundingClientRect()
+      const dropdownItemHeight = this.$refs.dropdownItemBox.firstChild.offsetHeight
+      const fontSize = parseFloat(window.getComputedStyle(document.body, null).fontSize)
+
+      // 如果设置了`size`（可视数），将修改dropdown的可视高度
+      if (this.size) {
+        const height = (dropdownItemHeight * this.size + fontSize + 2) / fontSize
+
+        this.$refs.dropdownItemBox.style.height = `${height}rem`
+      }
 
       this.upShow = (dropdownRect.bottom + window.scrollY) > document.body.clientHeight
       this.dropdownRect = dropdownRect
@@ -265,9 +274,12 @@ export default {
 .bootstrap-select .dropdown-menu {
   min-width: 100%;
   margin-bottom: 1rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .bootstrap-select.dropup .dropdown-menu {
+  margin-top: 1rem;
   margin-bottom: 0.125rem;
 }
 
