@@ -11,12 +11,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'prismjs/themes/prism-tomorrow.css'
 import Prism from 'prismjs'
 
+import SelectPicker from './components'
+
 Vue.config.productionTip = false
 
 // use
 Vue.nprogress = Vue.prototype.$nprogress = Nprogress
-
-Prism.highlightAll()
+Vue.prototype.$prism = Prism
+Vue.use(SelectPicker)
 
 /* eslint-disable no-new */
 new Vue({

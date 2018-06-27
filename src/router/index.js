@@ -7,8 +7,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home'
-      // component: HelloWorld
+      name: 'Home',
+      component: () => import('@/pages/Home')
     }
   ]
 })

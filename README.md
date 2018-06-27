@@ -8,7 +8,7 @@
 
 > Vue.js(v2.20+)
 
-> Bootstrap(v4.0.0+) 推荐使用 `Bootstrap-Vue` 这个库
+> Bootstrap(v4.0.0+) 推荐使用 `Bootstrap-Vue` 库
 
 ## Build Setup
 

@@ -260,7 +260,7 @@ export default {
 
       const currentActiveEl = this.$refs.dropdownItem[index]
       // const elHeight = currentActiveEl.offsetHeight || 0
-      const topValue = currentActiveEl.offsetTop || 0
+      const topValue = index < 1 ? 0 : currentActiveEl.offsetTop || 0
       // console.log(elHeight, topValue, this.$refs.dropdownItemBox.scrollTop)
       this.$refs.dropdownItemBox.scrollTo(0, topValue)
     }
