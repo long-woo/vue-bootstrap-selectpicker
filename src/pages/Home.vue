@@ -1,17 +1,22 @@
 <template>
   <div class="container-fluid">
-        <div class="row">
-      <div class="col-md-3">
-        <nav class="navbar navbar-light text-center">
-          <a class="navbar-brand" href="https://github.com/long-woo/vue-bootstrap-selectpicker">GitHub</a>
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link">基本示例</a>
-            </li>
-          </ul>
-        </nav>
+    <div class="row">
+      <div class="col-md-2 align-self-start pt-3 sticky-top">
+        <a class="navbar-brand text-secondary" href="https://github.com/long-woo/vue-bootstrap-selectpicker">GitHub</a>
+        <hr/>
+        <ul class="nav flex-column text-left">
+          <li class="nav-item">
+            <a class="nav-link text-success active" href="#">基本示例</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">multiple</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">size</a>
+          </li>
+        </ul>
       </div>
-      <div class="col-md-9 text-left">
+      <div class="col-md-10 pt-3 text-left">
         <div class="form-group">
           <h4>演示-1</h4>
           <p>单选，非
@@ -127,7 +132,7 @@
         </div>
         <div class="form-group">
           <h4>演示-6</h4>
-          <p>搜索并单选，
+          <p>搜索并多选，
             <code>key</code>、
             <code>value</code>形式的数组，支持
             <code>disabled</code>配置</p>
