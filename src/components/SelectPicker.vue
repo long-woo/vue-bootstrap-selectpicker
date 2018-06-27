@@ -4,7 +4,7 @@
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
     <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height }">
-      <a class="dropdown-item" href="javascript:;"
+      <a class="dropdown-item" ref="dropdownItem" href="javascript:;"
         :class="{ 'disabled': item.disabled,
                   'checked':  multiple && (chooseText.indexOf(item.text || item) > -1),
                   'active':  (activeIndex === index) && !item.disabled }"
@@ -139,7 +139,8 @@ export default {
 
       // 如果设置了`size`（可视数），将修改dropdown的可视高度
       if (this.size) {
-        const height = (dropdownItemHeight * this.size + fontSize + 2) / fontSize
+        const size = this.size > this.filterData.length ? this.filterData.length : this.size
+        const height = (dropdownItemHeight * size + fontSize + 2) / fontSize
 
         this.$refs.dropdownItemBox.style.height = `${height}rem`
       }
@@ -256,6 +257,12 @@ export default {
       const item = this.filterData[index] || {}
 
       if (item.disabled) this._selectArrow(this.arrowKey)
+
+      const currentActiveEl = this.$refs.dropdownItem[index]
+      // const elHeight = currentActiveEl.offsetHeight || 0
+      const topValue = currentActiveEl.offsetTop || 0
+      // console.log(elHeight, topValue, this.$refs.dropdownItemBox.scrollTop)
+      this.$refs.dropdownItemBox.scrollTo(0, topValue)
     }
   }
 }
