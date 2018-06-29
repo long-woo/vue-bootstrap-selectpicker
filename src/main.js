@@ -3,8 +3,6 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// Nprogress
-import Nprogress from 'nprogress'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -15,8 +13,6 @@ import SelectPicker from './components'
 
 Vue.config.productionTip = false
 
-// use
-Vue.nprogress = Vue.prototype.$nprogress = Nprogress
 Vue.prototype.$prism = Prism
 Vue.use(SelectPicker)
 
