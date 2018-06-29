@@ -8,16 +8,90 @@ const rm = require('rimraf')
 const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
+const merge = require('webpack-merge')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = require('../config')
-const webpackConfig = require('./webpack.prod.conf')
-
+const vueLoaderConfig = require('./vue-loader.conf')
+const env = require('../config/prod.env')
 const spinner = ora('building for production...')
 
+config.build.assetsRoot = path.resolve(__dirname, '../dist')
 config.build.assetsSubDirectory = '/'
 
-// webpackConfig.output = {
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
-// }
+const webpackBaseConfig = {
+  output: {
+    path: config.build.assetsRoot
+  },
+  devtool: config.build.productionSourceMap ? config.build.devtool : false,
+  resolve: {
+    extensions: ['.js', '.vue', '.json']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: vueLoaderConfig
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': env
+    }),
+
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        compress: {
+          warnings: false
+        }
+      },
+      sourceMap: config.build.productionSourceMap,
+      parallel: true
+    }),
+
+    new ExtractTextPlugin({
+      filename: `css/vue-bootstrap-selectpicker.min.css`,
+      allChunks: true
+    }),
+
+    new OptimizeCSSPlugin({
+      cssProcessorOptions: config.build.productionSourceMap
+        ? { safe: true, map: { inline: false } }
+        : { safe: true }
+    })
+  ]
+}
+const webpackConfig = [
+  merge(webpackBaseConfig, {
+    entry: path.resolve(`./src/components/SelectPicker.vue`),
+    output: {
+      filename: 'js/vue-bootstrap-selectpicker.js',
+      library: 'SelectPicker',
+      libraryTarget: 'window'
+    }
+  }),
+  merge(webpackBaseConfig, {
+    entry: path.resolve(`./src/components/index.js`),
+    output: {
+      filename: 'js/vue-bootstrap-selectpicker.min.js',
+      library: 'select-picker',
+      libraryTarget: 'umd',
+      umdNamedDefine: true
+    }
+  })
+]
 
 spinner.start()
 
@@ -39,10 +113,6 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       process.exit(1)
     }
 
-    console.log(chalk.cyan('  Build complete.\n'))
-    console.log(chalk.yellow(
-      '  Tip: built files are meant to be served over an HTTP server.\n' +
-      '  Opening index.html over file:// won\'t work.\n'
-    ))
+    console.log(chalk.green('  Build complete.\n'))
   })
 })
