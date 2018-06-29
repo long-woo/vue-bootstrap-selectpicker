@@ -15,6 +15,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/prod.env')
+const packageInfo = require('../package.json')
+
 const spinner = ora('building for production...')
 
 config.build.assetsRoot = path.resolve(__dirname, '../dist')
@@ -70,7 +72,11 @@ const webpackBaseConfig = {
       cssProcessorOptions: config.build.productionSourceMap
         ? { safe: true, map: { inline: false } }
         : { safe: true }
-    })
+    }),
+
+    new webpack.BannerPlugin(`vue-bootstrap-selectpicker v${packageInfo.version}
+copyright ${new Date()}. ${packageInfo.author}
+Licensed under ${packageInfo.license} (${packageInfo.repository.url}/blob/master/LICENSE)`)
   ]
 }
 const webpackConfig = [

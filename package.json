@@ -4,7 +4,7 @@
   "description": "Vue component---vue-bootstrap-selectpicker",
   "author": "long.woo <longwunet@outlook.com>",
   "license": "MIT",
-  "main": "dist/vue-bootstrap-selectpicker.min.js",
+  "main": "dist/vue-bootstrap-selectpicker.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/long-woo/vue-bootstrap-selectpicker"
@@ -14,7 +14,10 @@
   },
   "homepage": "https://github.com/long-woo/vue-bootstrap-selectpicker#readme",
   "files": [
-    "dist"
+    "dist",
+    "package.json",
+    "LICENSE",
+    "README.md"
   ],
   "keywords": [
     "vue",
