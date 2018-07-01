@@ -1,16 +1,27 @@
 language: node_js
 node_js:
-  - "9"
+- '9'
 sudo: required
 before_install:
-  - sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
-  - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  - sudo apt-get update -qq
-  - sudo apt-get install -y -qq yarn
+- sudo apt-key adv --fetch-keys http://dl.yarnpkg.com/debian/pubkey.gpg
+- echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+- sudo apt-get update -qq
+- sudo apt-get install -y -qq yarn
 cache:
   yarn: true
 script:
-  - yarn run build
+- yarn run build-component
+# deploy:
+#   provider: npm
+#   email: longwunet@outlook.com
+#   api_key:
+#     secure: LFqDrgDIDtiB8e7OYWW1OCIJpWVpMEd9/g8lT+kxnqZBdsjFc6sp936B/3v0nSK442eLBNQ+ao9+pnd9I/TV+u7tPt3abXvSg66y1nQKx3UzfHFT6YV+VlAwLAAUDVdsZLR9s8qzppR5mfjX8VoOUGh2wjbgFg4OoLE+Qlpf39Wqs87rJ1GCxmClYZdqOd5Prbr7wMksQSFZixgZJwWlf0E3dBr4zOOCoaTTmXus+Nn9fMUrzCz+gNT4ouZ8KWDg7vaL6KlZCW4BvwKQpYZ7g2rqJUCUcY5jbI3j6gxgpIVh2TpRHEdPIJK3COYp/UWCRTo6MsbQxPf2zFiKSKGuxY/CearnmDbh4HR+zO0+jbYiMJLDbl6Px92KYYysGYaN3Sna7uRSItOASKuIEW9duAhRz2kPR48q3Jzrq14qcyumB0Hjy2qq5bFjMLFo/qNJ9d+ghiVMErDxEfB13BnR+m4abdv26aEMiL/DJ1w3pFJuLpKBEf+qgEkBHBp7zxzZBwPoveTGBJILlWc7bejvyLJa2qHBTQD+3bAZn4xrvD3ABLkPlrxMkA2NtuGV+n5Zia3TxSWMmsTK7mbBCpUatB+KZFqv3u08504NBJf2LoE5ayKnMHBtHh4l2zkik1Dh1oHxZ2QPS3TvgbKh3qmZ3EQ+5BMMT6McPxZ3KBMlhkE=
+#   on:
+#     tags: true
+#     repo: long-woo/vue-bootstrap-selectpicker
 branches:
   only:
-    - master
+  - master
+# env:
+#   global:
+#     secure: A+h7QTbL+q3k7cSZ0jp4A8qkMFeQfD3H4p4JnqV8EWmEEAyJc1h2AG9SLMmdr8BsurG7NBnuxc3J4c8D16VpACS+wORIYRHi8eQv5Fg+CJRQdylxdyrTUWhf3o7n7byDoT1BwC0F2bOi3cuU6rVnRy8eIcJP5FlzHfqYIp+Va4/5xqeOTrGu/0ihUDdj1l4ta307QUdsH5wxh8SNP3b2AFHJsNwFH+JudXImtHyfexEmcpLkjTIJCUsUeQpkZ1m9j7pZRUTztzIp5lb+rnPtgM+cQSq8eZrhbPHKAwEayeyy2SfhXqppqK5DtJtxgSSi/TcN/WtJOXXcuzpgW9AxqOTT6gPXN36FWmZpNzhiEe1XCODjpsu69HGVh0G/4X9d+3o6KTuquzFqtbABjPYM6lXe64sKKY57RKlVIXdSNKPvYB9p98lRG1I0zr6wvMefyEAXeVVM8iO9xLOBd8ppXBIpua4F0eN7dsKi07Vo//ij+wvjmlJpi8uk32/EUU+sNgz/W3PMswBbXpAvJFOWNSJqKmMuw3V1Vx9EyR0BifllLEFeLgAaGUqDlnvodCdi3BJqq8tOYRvxhwPhL2MOFRIw3c7gTRiz89e8+LSo0v8hul+t0eJZ5gM8LwdfTpZ64nEEEhxsAqsf68MXDud5NTKXRRimzEie+pMEI7TnfgE=
