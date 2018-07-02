@@ -16,3 +16,10 @@
 > Bootstrap(v4.0.0+) 推荐使用 `Bootstrap-Vue` 库
 
 ## 使用
+
+> npm（yarn）安装
+``` bash
+npm i vue-bootstrap-selectpicker # yarn add vue-bootstrap-selectpicker
+```
+
+> 浏览器中

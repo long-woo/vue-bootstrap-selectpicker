@@ -7,6 +7,7 @@
   "main": "dist/vue-bootstrap-selectpicker.js",
   "repository": {
     "type": "git",
+    "owner": "long-woo",
     "url": "https://github.com/long-woo/vue-bootstrap-selectpicker"
   },
   "bugs": {

@@ -16,6 +16,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/prod.env')
 const packageInfo = require('../package.json')
+const GitHubPushlish = require('./publish/github-releases')
 
 const spinner = ora('building for production...')
 
@@ -120,5 +121,9 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     }
 
     console.log(chalk.green('  Build complete.\n'))
+
+    // 上传到github release draft
+    const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
+    publishGH.getReleaseDraft()
   })
 })
