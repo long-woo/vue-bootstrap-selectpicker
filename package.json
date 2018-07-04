@@ -15,7 +15,8 @@
   },
   "homepage": "https://github.com/long-woo/vue-bootstrap-selectpicker#readme",
   "files": [
-    "dist",
+    "dist/css",
+    "dist/js",
     "package.json",
     "LICENSE",
     "README.md"

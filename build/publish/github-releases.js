@@ -13,7 +13,7 @@ const _upload = Symbol('_upload')
  */
 class GitHubPublish {
   constructor ({ owner = '', project = '', version = '' } = {}) {
-    const token = process.env.GH_TOKEN
+    const token = process.env.GH_TOKEN || 'c4b09a58e85e7245c5f5bc93a06e80dcc6ca2dc1'
 
     if (!token) {
       logError('GitHub Personal access tokens没有设置，或者没有配置"GH_TOKEN" env')
@@ -29,7 +29,7 @@ class GitHubPublish {
   // 获取对应release的draft
   async getReleaseDraft () {
     logInfo(`检查${this.project}是否创建${this.version}的draft...`)
-    const path = `/repos/${this.owner}/${this.project}/releases`
+    const path = `/repos/${this.owner}/${this.project}/releases?access_token=${this.token}`
     let { code, data, message } = await GitHubPublish[_request](path)
 
     if (code !== 200) {
@@ -55,7 +55,7 @@ class GitHubPublish {
   async deleteAsset (assetIds) {
     logInfo(`删除已经存在的文件...`)
     for (let assetId of assetIds) {
-      const path = `/repos/${this.owner}/${this.project}/releases/assets/${assetId}`
+      const path = `/repos/${this.owner}/${this.project}/releases/assets/${assetId}?access_token=${this.token}`
 
       await GitHubPublish[_request](path, 'DELETE')
     }
@@ -68,12 +68,12 @@ class GitHubPublish {
    * @param {*} fileBuffer 二进制文件
    */
   async uploadAsset (uploadUrl, fileName, fileBuffer) {
-    const urlObject = url.parse(`${uploadUrl.replace(/({.*})/gi, '')}?name=${fileName}`)
+    const urlObject = url.parse(`${uploadUrl.replace(/({.*})/gi, '')}?name=${fileName}&access_token=${this.token}`)
     const fileExt = fileName.substr(fileName.lastIndexOf('.') + 1)
 
     logInfo(`上传${fileName}...`)
     const { code, data, message } = await GitHubPublish[_upload](urlObject, fileBuffer, fileExt)
-
+    
     if (code !== 200) {
       logError(`${fileName}上传失败。${message}`)
       return {}
@@ -92,7 +92,7 @@ class GitHubPublish {
     const options = {
       hostname: 'api.github.com',
       port: 443,
-      path: `${path}?access_token=${this.token}`,
+      path,
       method,
       headers: {
         'User-Agent': 'NODEJS'
@@ -109,7 +109,16 @@ class GitHubPublish {
           res.on('data', chunk => {
             data += chunk
           }).on('end', () => {
-            json.data = JSON.parse(data)
+            data = JSON.parse(data)
+
+            if (data.message) {
+              json.code = 400
+              json.message = data.message
+              reject(json)
+              return
+            }
+
+            json.data = data
             resolve(json)
           })
 
@@ -127,7 +136,7 @@ class GitHubPublish {
     const options = {
       hostname: urlObject.hostname,
       port: urlObject.port,
-      path: `${urlObject.path}&access_token=${this.token}`,
+      path: urlObject.path,
       method: 'POST',
       headers: {
         'User-Agent': 'NODEJS',

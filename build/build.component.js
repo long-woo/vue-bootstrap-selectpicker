@@ -34,7 +34,7 @@ function resolve (dir) {
 // 压缩文件夹
 function createZIP () {
   const fileName = `${packageInfo.name}-${packageInfo.version}.zip`
-  const filePath = `${resolve('/')}/${fileName}`
+  const filePath = `${config.build.assetsRoot}/${fileName}`
   const output = fs.createWriteStream(filePath)
   const archive = archiver('zip', {
     zlib: { level: 9}
@@ -43,8 +43,10 @@ function createZIP () {
   logInfo(`creating ${fileName}...`)
   output.on('close', async () => {
     const fileBuffer = fs.readFileSync(filePath, 'utf8')
+    let fileSize = archive.pointer()
 
-    logInfo(`${archive.pointer()} total bytes.\n\nupading ${fileName} to github release draft...`)
+    fileSize = fileSize.toString().length > 6 ? `${parseFloat(fileSize / 1024 / 1024).toFixed(2)} M` : `${parseFloat(fileSize / 1024).toFixed(2)} KB`
+    logInfo(`File size ${fileSize}.\n\nupading ${fileName} to github release draft...`)
 
     // 上传到github release draft
     const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
@@ -54,14 +56,14 @@ function createZIP () {
       throw new Error('')
     }
 
-    if (draft.assets) {
+    if (draft.assets.length) {
       // 如果draft中存在资源，先删除
       const assetIds = draft.assets.filter(asset => asset.id)
 
       await publishGH.deleteAsset(assetIds)
     }
 
-    publishGH.uploadAsset(draft.upload_url, filename, fileBuffer)
+    publishGH.uploadAsset(draft.upload_url, fileName, fileBuffer)
   })
 
   archive.on('error', (error) => {
@@ -153,9 +155,12 @@ spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
+
   webpack(webpackConfig, (err, stats) => {
     spinner.stop()
+
     if (err) throw err
+
     process.stdout.write(stats.toString({
       colors: true,
       modules: false,
