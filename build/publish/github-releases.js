@@ -1,18 +1,7 @@
 'use strict'
 
-const chalk = require('chalk')
 const https = require('https')
-
-const log = console.log;
-// const underline = chalk.underline;
-
-const info = chalk.cyan;
-const bgInfo = chalk.white.bgCyan;
-const logInfo = (text) => log(`${bgInfo(' INFO ')} ${info(text)}`);
-
-const error = chalk.red;
-const bgError = chalk.white.bgRed;
-const logError = (text) => log(`${bgError(' ERROR ')} ${error(text)}`);
+const {logInfo, logSuccess, logError} = require('../console')
 
 const _gitHubRequest = Symbol('_gitHubRequest')
 

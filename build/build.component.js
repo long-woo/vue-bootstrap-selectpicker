@@ -1,20 +1,24 @@
 'use strict'
+
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
+const fs = require('fs')
 const ora = require('ora')
 const rm = require('rimraf')
 const path = require('path')
-const chalk = require('chalk')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const archiver = require('archiver')
+
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/prod.env')
+const {logInfo, logSuccess, logError} = require('./console')
 const packageInfo = require('../package.json')
 const GitHubPushlish = require('./publish/github-releases')
 
@@ -25,6 +29,34 @@ config.build.assetsSubDirectory = '/'
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
+}
+
+// 压缩文件夹
+function createZIP () {
+  const fileName = `${packageInfo.name}-${packageInfo.version}.zip`
+  const output = fs.createWriteStream(`${resolve('/')}/${fileName}`)
+  const archive = archiver('zip', {
+    zlib: { level: 9}
+  })
+
+  logInfo(`creating ${fileName}...`)
+  output.on('close', () => {
+    logInfo(`${archive.pointer()} total bytes.\n\nupading ${fileName} to github release draft...`)
+    // 上传到github release draft
+    // const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
+    // publishGH.getReleaseDraft()
+  })
+
+  archive.on('error', (error) => {
+    logError(err)
+    throw new Error('')
+  })
+
+  archive.pipe(output)
+
+  // 添加文件
+  archive.directory(config.build.assetsRoot, false)
+  archive.finalize()
 }
 
 const webpackBaseConfig = {
@@ -116,14 +148,11 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     }) + '\n\n')
 
     if (stats.hasErrors()) {
-      console.log(chalk.red('  Build failed with errors.\n'))
+      logError('Build failed with errors.')
       process.exit(1)
     }
 
-    console.log(chalk.green('  Build complete.\n'))
-
-    // 上传到github release draft
-    const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
-    publishGH.getReleaseDraft()
+    logSuccess('Build complete.')
+    createZIP()
   })
 })
