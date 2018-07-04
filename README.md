@@ -7,7 +7,7 @@
 >
 > 如果你用过`bootstrap-selectpicker`，在vue项目里想继续使用，`vue-bootstrap-selectpicker`将是一个替代组件
 
-![img](https://raw.github.com/long-woo/vue-bootstrap-selectpicker/master/show.png)
+![img](https://raw.github.com/long-woo/vue-bootstrap-selectpicker/master/show.gif)
 
 ## 依赖库
 

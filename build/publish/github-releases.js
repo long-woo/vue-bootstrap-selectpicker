@@ -13,7 +13,7 @@ const _upload = Symbol('_upload')
  */
 class GitHubPublish {
   constructor ({ owner = '', project = '', version = '' } = {}) {
-    const token = process.env.GH_TOKEN || 'c4b09a58e85e7245c5f5bc93a06e80dcc6ca2dc1'
+    const token = process.env.GH_TOKEN
 
     if (!token) {
       logError('GitHub Personal access tokens没有设置，或者没有配置"GH_TOKEN" env')
