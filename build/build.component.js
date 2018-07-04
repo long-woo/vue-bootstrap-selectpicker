@@ -34,17 +34,34 @@ function resolve (dir) {
 // 压缩文件夹
 function createZIP () {
   const fileName = `${packageInfo.name}-${packageInfo.version}.zip`
-  const output = fs.createWriteStream(`${resolve('/')}/${fileName}`)
+  const filePath = `${resolve('/')}/${fileName}`
+  const output = fs.createWriteStream(filePath)
   const archive = archiver('zip', {
     zlib: { level: 9}
   })
 
   logInfo(`creating ${fileName}...`)
-  output.on('close', () => {
+  output.on('close', async () => {
+    const fileBuffer = fs.readFileSync(filePath, 'utf8')
+
     logInfo(`${archive.pointer()} total bytes.\n\nupading ${fileName} to github release draft...`)
+
     // 上传到github release draft
-    // const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
-    // publishGH.getReleaseDraft()
+    const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
+    const draft = await publishGH.getReleaseDraft()
+
+    if (!draft.id) {
+      throw new Error('')
+    }
+
+    if (draft.assets) {
+      // 如果draft中存在资源，先删除
+      const assetIds = draft.assets.filter(asset => asset.id)
+
+      await publishGH.deleteAsset(assetIds)
+    }
+
+    publishGH.uploadAsset(draft.upload_url, filename, fileBuffer)
   })
 
   archive.on('error', (error) => {

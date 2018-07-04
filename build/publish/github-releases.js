@@ -1,10 +1,11 @@
 'use strict'
 
 const https = require('https')
+const url = require('url')
 const {logInfo, logSuccess, logError} = require('../console')
 
-const _gitHubRequest = Symbol('_gitHubRequest')
-
+const _request = Symbol('_request')
+const _upload = Symbol('_upload')
 
 /**
  * Publish github release draft
@@ -29,7 +30,7 @@ class GitHubPublish {
   async getReleaseDraft () {
     logInfo(`检查${this.project}是否创建${this.version}的draft...`)
     const path = `/repos/${this.owner}/${this.project}/releases`
-    let { code, data, message } = await GitHubPublish[_gitHubRequest](path)
+    let { code, data, message } = await GitHubPublish[_request](path)
 
     if (code !== 200) {
       logError(message)
@@ -56,16 +57,38 @@ class GitHubPublish {
     for (let assetId of assetIds) {
       const path = `/repos/${this.owner}/${this.project}/releases/assets/${assetId}`
 
-      await GitHubPublish[_gitHubRequest](path, 'DELETE')
+      await GitHubPublish[_request](path, 'DELETE')
     }
   }
 
-  // 上传文件
-  async uploadAsset () {
+  /**
+   * 上传资源
+   * @param {*} uploadUrl 上传地址，从‘getReleaseDraft’中获取
+   * @param {*} fileName 文件名
+   * @param {*} fileBuffer 二进制文件
+   */
+  async uploadAsset (uploadUrl, fileName, fileBuffer) {
+    const urlObject = url.parse(`${uploadUrl.replace(/({.*})/gi, '')}?name=${fileName}`)
+    const fileExt = fileName.substr(fileName.lastIndexOf('.') + 1)
 
+    logInfo(`上传${fileName}...`)
+    const { code, data, message } = await GitHubPublish[_upload](urlObject, fileBuffer, fileExt)
+
+    if (code !== 200) {
+      logError(`${fileName}上传失败。${message}`)
+      return {}
+    }
+    
+    if (!data) {
+      logError(`${fileName}上传失败`)
+      return {}
+    }
+
+    logSuccess(`${fileName}上传成功`)
+    return data
   }
 
-  static [_gitHubRequest] (path, method = 'GET') {
+  static [_request] (path, method = 'GET') {
     const options = {
       hostname: 'api.github.com',
       port: 443,
@@ -83,8 +106,8 @@ class GitHubPublish {
 
       https.request(options, res => {
           let data = ''
-          res.on('data', buffer => {
-            data += buffer
+          res.on('data', chunk => {
+            data += chunk
           }).on('end', () => {
             json.data = JSON.parse(data)
             resolve(json)
@@ -97,6 +120,45 @@ class GitHubPublish {
           json.message = error
           reject(json)
         }).end()
+    }).catch(() => {})
+  }
+
+  static [_upload] (urlObject, fileBuffer, fileExt) {
+    const options = {
+      hostname: urlObject.hostname,
+      port: urlObject.port,
+      path: `${urlObject.path}&access_token=${this.token}`,
+      method: 'POST',
+      headers: {
+        'User-Agent': 'NODEJS',
+        'Content-Type': `application/${fileExt || 'octet-stream'}`,
+        'Content-Length': fileBuffer.length
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      const json = {
+        code: 200
+      }
+
+      const request = https.request(options, res => {
+        let data = ''
+        res.on('data', chunk => {
+          data += chunk
+        }).on('end', () => {
+          json.data = JSON.parse(data)
+          resolve(json)
+        })
+      }).on('error', error => {
+        logError(error)
+
+        json.code = 400
+        json.message = error
+        reject(json)
+      })
+
+      request.write(fileBuffer)
+      request.end()
     }).catch(() => {})
   }
 }
