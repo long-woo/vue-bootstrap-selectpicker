@@ -22,7 +22,7 @@ const {logInfo, logSuccess, logError} = require('./console')
 const packageInfo = require('../package.json')
 const GitHubPushlish = require('./publish/github-releases')
 
-const spinner = ora('building for production...')
+const spinner = ora('building for component...')
 
 config.build.assetsRoot = path.resolve(__dirname, '../dist')
 config.build.assetsSubDirectory = '/'

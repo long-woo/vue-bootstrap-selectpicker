@@ -212,7 +212,7 @@ export default {
           const data = currentValue.text || currentValue
 
           if (data.toLowerCase().includes(value)) {
-            prevValue.push(data)
+            prevValue.push(currentValue)
           }
 
           return prevValue
