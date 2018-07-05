@@ -1,7 +1,9 @@
 # vue-bootstrap-selectpicker
 
-[![Build Status](https://travis-ci.org/long-woo/vue-bootstrap-selectpicker.svg?branch=master)](https://travis-ci.org/long-woo/vue-bootstrap-selectpicker)
-[![npm version](https://img.shields.io/npm/v/vue-bootstrap-selectpicker.svg?style=flat)](https://www.npmjs.com/package/vue-bootstrap-selectpicker)
+[![BUILD STATUS](https://travis-ci.org/long-woo/vue-bootstrap-selectpicker.svg?branch=master)](https://travis-ci.org/long-woo/vue-bootstrap-selectpicker)
+[![NPM VERSION](https://img.shields.io/npm/v/vue-bootstrap-selectpicker.svg?style=flat)](https://www.npmjs.com/package/vue-bootstrap-selectpicker)
+[![NPM LICENSE](https://img.shields.io/npm/l/vue-bootstrap-selectpicker.svg)](https://github.com/long-woo/vue-bootstrap-selectpicker/blob/master/LICENSE)
+[![NPM DOWNLOAD](https://img.shields.io/npm/dm/vue-bootstrap-selectpicker.svg)](https://www.npmjs.com/package/vue-bootstrap-selectpicker)
 
 > vue-bootstrap-selectpicker组件
 >

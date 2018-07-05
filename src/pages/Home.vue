@@ -1,8 +1,11 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-2 align-self-start pt-3 sticky-top">
-        <a class="navbar-brand text-secondary" href="https://github.com/long-woo/vue-bootstrap-selectpicker">GitHub</a>
+      <div class="col-md-3 align-self-start pt-3 sticky-top bg-white">
+        <a class="navbar-brand text-secondary" href="https://github.com/long-woo/vue-bootstrap-selectpicker" target="_blank">vue-bootstrap-selecticker</a>
+        <a href="https://github.com/long-woo/vue-bootstrap-selectpicker" target="_blank">
+          <img src="https://img.shields.io/github/stars/long-woo/vue-bootstrap-selectpicker.svg?style=for-the-badge&label=Stars" alt="github stars">
+        </a>
         <hr/>
         <ul class="nav flex-column text-left">
           <li class="nav-item">
@@ -16,7 +19,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-10 pt-3 text-left">
+      <div class="col-md-9 pt-3 text-left">
         <div class="form-group">
           <h4>演示-1</h4>
           <p>单选，非
@@ -224,5 +227,11 @@ pre {
 
 pre:hover {
   box-shadow: 0 0 1.5rem rgba(71, 183, 132, 0.6);
+}
+
+.navbar-brand {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
 }
 </style>
