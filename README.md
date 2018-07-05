@@ -18,8 +18,53 @@
 ## 使用
 
 > npm（yarn）安装
+
 ``` bash
 npm i vue-bootstrap-selectpicker # yarn add vue-bootstrap-selectpicker
 ```
 
-> 浏览器中
+``` js
+// 在main.js里面加入以下代码
+import 'vue-bootstrap-selectpicker/css/vue-bootstrap-selectpicker.min.css'
+import SelectPicker from 'vue-bootstrap-selectpicker'
+
+Vue.use(SelectPicker)
+```
+
+> 浏览器
+
+``` html
+<head>
+  ...
+  <link ref="stylesheet" href="/vue-bootstrap-selectpicker/css/vue-bootstrap-selectpicker.min.css">
+</head>
+<body>
+  ...
+  <script src="/vue-bootstrap-selectpicker/js/vue-bootstrap-selectpicker.min.js"></script>
+</body>
+```
+
+> 示例
+
+``` vue | html
+<select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" />
+```
+
+``` js
+export default {
+  data () {
+    return {
+      ...
+      dropdownData: ['Vue', 'React', 'Angular', 'jQuery'],
+      defaultSelectText: ''
+    }
+  },
+  methods: {
+    ...
+    changeSelect (data, text) {
+      console.log(data)
+      this.defaultSelectText = text
+    }
+  }
+}
+```
