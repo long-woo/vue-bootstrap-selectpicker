@@ -42,7 +42,7 @@ Vue.use(SelectPicker)
 </head>
 <body>
   ...
-  <script src="/vue-bootstrap-selectpicker/js/vue-bootstrap-selectpicker.min.js"></script>
+  <script src="/vue-bootstrap-selectpicker/js/vue-bootstrap-selectpicker.js"></script>
 </body>
 ```
 
