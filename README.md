@@ -48,7 +48,7 @@ Vue.use(SelectPicker)
 
 > 示例 <a traget="_blank" href="https://long-woo.github.io/vue-bootstrap-selectpicker/">更多...</a>
 
-``` vue | html
+``` html
 <select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" />
 ```
 
