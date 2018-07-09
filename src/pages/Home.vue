@@ -26,10 +26,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link">配置项</a>
+            <router-link class="nav-link" to="/propertys">属性</router-link>
             <ul class="nav flex-column nav-sub-item">
               <li class="nav-item">
-                <a class="nav-link">默认值</a>
+                <a class="nav-link">dropdown-data</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">v-model</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link">placeholder</a>
@@ -42,6 +45,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link">size</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">is-dropdown</a>
               </li>
             </ul>
           </li>
@@ -56,51 +62,6 @@
         </ul>
       </div>
       <div class="col-md-9 pt-3 text-left">
-        <div class="form-group">
-          <h2>使用</h2>
-          <h4>npm</h4>
-          <div>
-            <pre><code class="language-bash">npm i vue-bootstrap-selectpicker #yarn add vue-bootstrap-selectpicker</code></pre>
-
-            <pre><code class="language-js">// 在main.js里面加入以下代码
-import 'vue-bootstrap-selectpicker/css/vue-bootstrap-selectpicker.min.css'
-import SelectPicker from 'vue-bootstrap-selectpicker'
-
-Vue.use(SelectPicker)
-</code></pre>
-          </div>
-          <h4>浏览器</h4>
-          <div>
-            <pre><code class="language-html">&lt;head>
-  ...
-  &lt;link ref="stylesheet" href="/vue-bootstrap-selectpicker/css/vue-bootstrap-selectpicker.min.css">
-&lt;/head>
-
-&lt;body>
-  ...
-  &lt;script src="/vue-bootstrap-selectpicker/js/vue-bootstrap-selectpicker.js">&lt;/script>
-&lt;/body></code></pre>
-          </div>
-          <h4>简单示例</h4>
-          <div>
-            <pre><code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code></pre>
-            <pre><code class="language-js">...
-data () {
-  return {
-    ...
-    dropdownData: ['Vue', 'React', 'Angular', 'jQuery'],
-    defaultSelectText: ''
-  }
-},
-methods: {
-  ...
-  changeSelect (data, text) {
-    console.log(data)
-    this.defaultSelectText = text
-  }
-}</code></pre>
-          </div>
-        </div>
         <div class="form-group">
           <h2>基本示例</h2>
           <h4>数据源</h4>
@@ -294,35 +255,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-h2 {
-  margin-bottom: 2rem;
-}
-
-h4 {
-  border-bottom: 0.05rem solid #e5e5e5;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;
-  padding-bottom: 0.5rem;
-}
-
-pre {
-  border-radius: 0.25rem;
-  transition: all 0.3ms ease-out;
-}
-
-pre:hover {
-  box-shadow: 0 0 1.5rem rgba(71, 183, 132, 0.6);
-}
-
-.navbar-brand {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 100%;
-}
-
-.nav-item .nav-sub-item {
-  padding-left: 1rem;
-}
-</style>
