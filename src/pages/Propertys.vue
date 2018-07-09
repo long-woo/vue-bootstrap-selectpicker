@@ -37,6 +37,12 @@ export default {
         {name: 'is-dropdown', type: 'Boolean', value: 'false', remark: '是否在组件渲染完成，显示下拉项'}
       ]
     }
+  },
+  methods: {
+    consoleInfo (data, example) {
+      data = JSON.stringify(data)
+      console.info(`%c演示-${example}%c输出：%c${data}`, 'color: #47B784;', 'color: #000;', 'background-color: #d1ecf1; border-color: #d1ecf1; color: #0c5460; border-radius: 0.25rem; padding: 0.25rem 0.5rem;')
+    }
   }
 }
 </script>

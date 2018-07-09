@@ -1,6 +1,6 @@
 <template>
   <div class="form-group">
-    <h4>npm</h4>
+    <h4>npm（yarn）</h4>
     <div>
       <pre><code class="language-bash">npm i vue-bootstrap-selectpicker #yarn add vue-bootstrap-selectpicker</code></pre>
 

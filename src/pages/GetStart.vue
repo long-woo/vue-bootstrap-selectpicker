@@ -13,7 +13,7 @@
         <ul class="nav flex-column text-left">
           <li class="nav-item">
             <router-link class="nav-link nav-item-title" to="/getstart/use" :class="{'active': $route.name === 'Use'}">使用</router-link>
-            <ul class="nav flex-column nav-sub-item">
+            <ul class="nav flex-column nav-sub-item" v-show="$route.name === 'Use'">
               <li class="nav-item">
                 <a class="nav-link">npm或yarn</a>
               </li>
@@ -27,7 +27,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-item-title" to="/getstart/propertys" :class="{'active': $route.name === 'Propertys'}">属性</router-link>
-            <ul class="nav flex-column nav-sub-item">
+            <ul class="nav flex-column nav-sub-item" v-show="$route.name === 'Propertys'">
               <li class="nav-item">
                 <a class="nav-link">dropdown-data</a>
               </li>
@@ -53,7 +53,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link nav-item-title" to="/getstart/events" :class="{'active': $route.name === 'Events'}">事件</router-link>
-            <ul class="nav flex-column nav-sub-item">
+            <ul class="nav flex-column nav-sub-item" v-show="$route.name === 'Events'">
               <li class="nav-item">
                 <a class="nav-link">changeSelect</a>
               </li>
