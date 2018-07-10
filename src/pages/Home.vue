@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <canvas ref="cvWave" class="canvas-fluid"></canvas>
-    <div class="mt-5">
-      <h2>vue-bootstrap-selecticker</h2>
-      <p>
+    <div class="pt-5">
+      <h2 class="home-title">vue-bootstrap-selecticker</h2>
+      <p class="home-badge">
         <img src="https://img.shields.io/github/release/long-woo/vue-bootstrap-selectpicker/all.svg?style=for-the-badge" alt="vue-bootstrap-selecticker version" />
       </p>
       <router-link class="btn btn-outline-success btn-getstart" to="/getstart">快速开始</router-link>
@@ -96,7 +96,7 @@ export default {
         ctx.fill()
         ctx.closePath()
 
-        // window.requestAnimationFrame(drawWave)
+        window.requestAnimationFrame(drawWave)
       }
 
       drawWave()
@@ -117,7 +117,20 @@ export default {
   pointer-events: none;
 }
 
+.home-title {
+  margin-bottom: 1rem !important;
+}
+
+.home-badge {
+  margin-bottom: 2rem;
+}
+
 .btn-getstart {
-  width: 10rem;
+  padding: 0.8rem 5rem;
+}
+
+.btn-getstart:hover {
+  box-shadow: 0 0.3rem 0.3rem rgba(54, 73, 93, 0.3);
+  padding: 0.75rem 4.5rem;
 }
 </style>

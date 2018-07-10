@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       propDatas: [
-        {name: 'dropdown-data', type: 'Array', value: '[]', remark: '<strong>数据源</strong>支持两种格式的数据源，可以是普通数组<code>[&acute;Vue&acute;, ...]</code>，也可以是<code>[{text: &acute;Vue&acute;, value: &acute;Vue&acute;}, ...]</code>。第二种类型的数据源的<code>text</code>是必须的，当需要禁用某项时，可添加一个<code>disabled</code>的属性并且将值设置为<code>true</code>'},
+        {name: 'dropdown-data', type: 'Array', value: '[]', remark: '支持两种格式的<strong>数据源</strong>，可以是普通数组<code>[&acute;Vue&acute;, ...]</code>，也可以是<code>[{text: &acute;Vue&acute;, value: &acute;Vue&acute;}, ...]</code>。第二种类型的数据源的<code>text</code>是必须的，当需要禁用某项时，可添加一个<code>disabled</code>的属性并且将值设置为<code>true</code>'},
         {name: 'v-model', type: 'Array | String', value: '', remark: '默认显示的值'},
         {name: 'placeholder', type: 'String', value: '', remark: 'html原有属性'},
         {name: 'disabled', type: 'Boolean', value: 'false', remark: 'html原有属性'},

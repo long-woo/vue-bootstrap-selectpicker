@@ -12,15 +12,24 @@ export default {
 </script>
 
 <style>
+* {
+  transition: all 0.3s ease-in !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }
 
 h4 {
   border-bottom: 0.05rem solid #e5e5e5;
-  margin-bottom: 1.5rem;
-  margin-top: 2rem;
-  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem !important;
+  margin-top: 2rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 pre {
@@ -38,6 +47,7 @@ pre:hover {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 
 .fork-me img {
