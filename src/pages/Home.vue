@@ -1,6 +1,13 @@
 <template>
   <div class="container-fluid">
     <canvas ref="cvWave" class="canvas-fluid"></canvas>
+    <div class="mt-5">
+      <h2>vue-bootstrap-selecticker</h2>
+      <p>
+        <img src="https://img.shields.io/github/release/long-woo/vue-bootstrap-selectpicker/all.svg?style=for-the-badge" alt="vue-bootstrap-selecticker version" />
+      </p>
+      <router-link class="btn btn-outline-success btn-getstart" to="/getstart">快速开始</router-link>
+    </div>
   </div>
 </template>
 
@@ -8,59 +15,91 @@
 export default {
   name: 'Home',
   data () {
-    return {
-      dropdownData: ['Vue', 'React', 'Angular'],
-      dropdownData1: ['Vue', 'React', 'Angular', 'jQuery'],
-      dropdownData2: [
-        { text: 'Vue', value: 'vue' },
-        { text: 'React', value: 'react', disabled: false },
-        { text: 'Angular', value: 'angular' },
-        { text: 'jQuery', value: 'jquery', disabled: true }
-      ],
-      demo1: '',
-      demo2: '',
-      demo3: '',
-      demo4: '',
-      demo5: '',
-      demo6: '',
-      demo7: ''
-    }
+    return {}
   },
   mounted () {
-    this.$prism.highlightAll()
+    this.initWave()
   },
   methods: {
-    consoleInfo (data, example) {
-      data = JSON.stringify(data)
-      console.info(`%c演示-${example}%c输出：%c${data}`, 'color: #47B784;', 'color: #000;', 'background-color: #d1ecf1; border-color: #d1ecf1; color: #0c5460; border-radius: 0.25rem; padding: 0.25rem 0.5rem;')
-    },
-    change1 (data, text) {
-      this.demo1 = text
-      this.consoleInfo(data, 1)
-    },
-    change2 (data, text) {
-      this.demo2 = text
-      this.consoleInfo(data, 2)
-    },
-    change3 (data, text) {
-      this.demo3 = text
-      this.consoleInfo(data, 3)
-    },
-    change4 (data, text) {
-      this.demo4 = text
-      this.consoleInfo(data, 4)
-    },
-    change5 (data, text) {
-      this.demo5 = text
-      this.consoleInfo(data, 5)
-    },
-    change6 (data, text) {
-      this.demo6 = text
-      this.consoleInfo(data, 6)
-    },
-    change7 (data, text) {
-      this.demo7 = text
-      this.consoleInfo(data, 7)
+    initWave () {
+      const cvWave = this.$refs.cvWave
+      const ctx = cvWave.getContext('2d')
+      const width = cvWave.width = cvWave.offsetWidth
+      const height = cvWave.height = cvWave.offsetHeight
+
+      const A1 = 30
+      const W1 = 1 / 200
+      let Q1 = 0
+      const H1 = height / 2
+
+      const A2 = 30
+      const W2 = 1 / 300
+      let Q2 = 0
+      const H2 = height / 2
+
+      const speed1 = -0.01
+      const speed2 = -0.02
+
+      const lingrad1 = ctx.createLinearGradient(0, 0, width, 0)
+      const lingrad2 = ctx.createLinearGradient(0, 0, width, 0)
+
+      // requestAnimationFrame兼容性处理
+      window.requestAnimationFrame = (() => requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+          setTimeout(callback, 1000 / 60)
+        }
+      )()
+
+      lingrad1.addColorStop(0, '#47B784')
+      lingrad1.addColorStop(1, '#36495D')
+      lingrad2.addColorStop(0, '#36495D')
+      lingrad2.addColorStop(0, '#47B784')
+
+      const drawWave = () => {
+        ctx.clearRect(0, 0, width, height)
+        ctx.globalCompositeOperation = 'destination-over'
+
+        // 第一个波浪
+        ctx.beginPath()
+        ctx.fillStyle = lingrad1
+        ctx.moveTo(0, height / 2)
+        Q1 += speed1
+
+        for (let x = 0; x <= width; x++) {
+          const y = (A1 * Math.sin(x * W1 + Q1) + H1)
+
+          ctx.lineTo(x, y)
+        }
+
+        ctx.lineTo(width, height)
+        ctx.lineTo(0, height)
+        ctx.fill()
+        ctx.closePath()
+
+        // 绘制第二个
+        ctx.beginPath()
+        ctx.fillStyle = lingrad2
+        Q2 += speed2
+
+        for (let x = 0; x <= width; x++) {
+          const y = A2 * Math.sin(x * W2 + Q2) + H2
+
+          ctx.lineTo(x, y)
+        }
+
+        ctx.lineTo(width, height)
+        ctx.lineTo(0, height)
+        ctx.fill()
+        ctx.closePath()
+
+        // window.requestAnimationFrame(drawWave)
+      }
+
+      drawWave()
     }
   }
 }
@@ -75,5 +114,10 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+}
+
+.btn-getstart {
+  width: 10rem;
 }
 </style>

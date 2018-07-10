@@ -2,11 +2,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3 align-self-start pt-3 sticky-top bg-white">
-        <a class="navbar-brand text-secondary" href="https://github.com/long-woo/vue-bootstrap-selectpicker" target="_blank">vue-bootstrap-selecticker</a>
-        <a href="https://github.com/long-woo/vue-bootstrap-selectpicker/releases" target="_blank">
+        <a class="navbar-brand text-secondary" href="https://github.com/long-woo/vue-bootstrap-selectpicker">vue-bootstrap-selecticker</a>
+        <a href="https://github.com/long-woo/vue-bootstrap-selectpicker/releases">
           <img src="https://img.shields.io/npm/v/vue-bootstrap-selectpicker.svg?style=for-the-badge" alt="version">
         </a>
-        <a href="https://github.com/long-woo/vue-bootstrap-selectpicker" target="_blank">
+        <a href="https://github.com/long-woo/vue-bootstrap-selectpicker">
           <img src="https://img.shields.io/github/stars/long-woo/vue-bootstrap-selectpicker.svg?style=for-the-badge&label=Stars" alt="github stars">
         </a>
         <hr/>
