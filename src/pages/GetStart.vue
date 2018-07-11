@@ -2,7 +2,7 @@
   <div class="container-fluid h-100">
     <div class="row">
       <div class="col-md-3 align-self-start pt-3 sticky-top bg-white">
-        <a class="navbar-brand text-secondary" href="/">vue-bootstrap-selecticker</a>
+        <a class="navbar-brand text-secondary" href="https://long-woo.github.io/vue-bootstrap-selectpicker">vue-bootstrap-selecticker</a>
         <div class="getstart-badge">
           <button ref="btnMenu" class="btn btn-link btn-menu" type="button" @click="toggleMenu">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
@@ -48,6 +48,9 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link">multiple</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link">search</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link">size</a>
