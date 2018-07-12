@@ -57,8 +57,32 @@
     <h4>disabled</h4>
     <div>
       <p>html原有属性</p>
-      <select-picker placeholder="diabled..." disabled :dropdown-data="baseDropdownData" v-model="noDefaultValue" />
+      <select-picker placeholder="disabled..." disabled :dropdown-data="baseDropdownData" v-model="noDefaultValue" />
       <pre><code class="language-html">&lt;select-picker disabled /></code></pre>
+    </div>
+    <h4>multiple</h4>
+    <div>
+      <p>是否允许多选</p>
+      <select-picker placeholder="可多选..." multiple :dropdown-data="baseDropdownData" v-model="noDefaultValue" />
+      <pre><code class="language-html">&lt;select-picker multiple /></code></pre>
+    </div>
+    <h4>search</h4>
+    <div>
+      <p>是否允许搜索，当设置为true时，会把html原有readonly属性设置为false</p>
+      <select-picker placeholder="输入关键字搜索..." search :dropdown-data="baseDropdownData" v-model="noDefaultValue" />
+      <pre><code class="language-html">&lt;select-picker search /></code></pre>
+    </div>
+    <h4>size</h4>
+    <div>
+      <p>是下拉项的可视数，超过设置的值将显示滚动条</p>
+      <select-picker placeholder="请选择..." :size="3" :dropdown-data="baseDropdownData" v-model="noDefaultValue" />
+      <pre><code class="language-html">&lt;select-picker :size="3" /></code></pre>
+    </div>
+    <h4>is-dropdown</h4>
+    <div>
+      <p>是否在组件渲染完成，显示下拉项</p>
+      <select-picker placeholder="请选择..." :is-dropdown="true" :dropdown-data="baseDropdownData" v-model="noDefaultValue" />
+      <pre><code class="language-html">&lt;select-picker :is-dropdown="true" /></code></pre>
     </div>
     <h4>Propertys</h4>
     <div class="table-responsive">
