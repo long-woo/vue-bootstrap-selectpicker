@@ -16,11 +16,6 @@ export default {
   transition: all 0.3s ease-in !important;
 }
 
-html,
-body {
-  /* height: 100%; */
-}
-
 h2 {
   margin-bottom: 2rem !important;
 }
@@ -47,7 +42,6 @@ pre:hover {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /* height: 100%; */
 }
 
 .fork-me img {
