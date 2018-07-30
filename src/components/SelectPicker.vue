@@ -1,5 +1,5 @@
 <template>
-  <div class="dropdown bootstrap-select" :class="{ 'dropup': upShow, 'show': isOpen }">
+  <div class="dropdown bootstrap-select" :class="{ 'dropup': upShow, 'show': isOpen, 'disabled': ($attrs.disabled || $attrs.disabled === '') }">
     <div class="dropdown-toggle">
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
@@ -312,6 +312,10 @@ export default {
   right: 0.625rem;
   top: 50%;
   margin-top: -0.15rem;
+}
+
+.bootstrap-select.disabled .dropdown-toggle:after {
+  border-bottom-color: #B3B8BD;
 }
 
 .dropdown-menu .dropdown-item.checked:after {
