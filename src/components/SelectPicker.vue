@@ -4,11 +4,9 @@
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
     <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height }">
-      <a class="dropdown-item" ref="dropdownItem" href="javascript:;"
-        :class="{ 'disabled': item.disabled,
+      <a class="dropdown-item" ref="dropdownItem" href="javascript:;" :class="{ 'disabled': item.disabled,
                   'checked':  multiple && (chooseText.indexOf(item.text || item) > -1),
-                  'active':  (activeIndex === index) && !item.disabled }"
-        v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{ item.text || item }}</a>
+                  'active':  (activeIndex === index) && !item.disabled }" v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{ item.text || item }}</a>
       <a class="dropdown-item disabled" v-show="!filterData.length">{{emptyText}}</a>
     </div>
   </div>
@@ -123,6 +121,15 @@ export default {
       }
     }
   },
+  // watch: {
+  //   chooseData (value) {
+  //     this.chooseText = value.reduce((prevValue, currentValue) => {
+  //       prevValue.push(currentValue.text || currentValue)
+
+  //       return prevValue
+  //     }, [])
+  //   }
+  // },
   mounted () {
     this.initSelect()
   },
@@ -183,47 +190,53 @@ export default {
         this.isOpen = false
         this.chooseData = [].concat(item)
       } else {
-        if (index > -1) {
-          this.chooseData.splice(index, 1)
-        } else {
-          this.chooseData.push(item)
-        }
+        index > -1 ? this.chooseData.splice(index, 1) : this.chooseData.push(item)
       }
 
-      this.chooseText = this.chooseData.reduce((prevValue, currentValue) => {
-        prevValue.push(currentValue.text || currentValue)
+      const chooseText = this.chooseData.reduce((prevValue, currentValue) => {
+        const value = currentValue.text || currentValue
+
+        prevValue.push(value)
 
         return prevValue
       }, [])
 
-      const chooseText = this.chooseText.toString()
+      this.chooseText = chooseText.toString()
 
       this.activeIndex = itemIndex
-      this.$emit('changeSelect', this.chooseData, chooseText)
+      this.$emit('changeSelect', this.chooseData, this.chooseText)
     },
 
     // 搜索，根据输入的关键字帅选
     _dropdownInput (value) {
+      let newValue = this.dropdownData
+
       this.chooseText = value
+
       value = value.toLowerCase()
 
       if (value) {
-        this.filterData = this.dropdownData.reduce((prevValue, currentValue) => {
-          const data = currentValue.text || currentValue
+        newValue = newValue.reduce((prevValue, currentValue) => {
+          let data = currentValue.text || currentValue
 
-          if (data.toLowerCase().includes(value)) {
+          // 修复数字类型的选项问题 https://github.com/long-woo/vue-bootstrap-selectpicker/issues/2
+          data = data.toString().toLowerCase()
+
+          if (data.includes(value) || (this.multiple && value.includes(data))) {
             prevValue.push(currentValue)
           }
 
           return prevValue
         }, [])
-      } else {
-        this.filterData = this.dropdownData
       }
 
+      // if (this.multiple) {
+      //   this.chooseData = value.split(/,/g)
+      // }
+      this.filterData = newValue
       this.activeIndex = -1
       this.showDropdown()
-      this.$emit('input', this.chooseText)
+      this.$emit('input', value)
     },
 
     // 方向键上、下
@@ -295,7 +308,7 @@ export default {
   visibility: hidden;
 }
 
-.bootstrap-select.show .dropdown-menu{
+.bootstrap-select.show .dropdown-menu {
   display: block;
 }
 
@@ -315,7 +328,7 @@ export default {
 }
 
 .bootstrap-select.disabled .dropdown-toggle:after {
-  border-bottom-color: #B3B8BD;
+  border-bottom-color: #b3b8bd;
 }
 
 .dropdown-menu .dropdown-item.checked:after {

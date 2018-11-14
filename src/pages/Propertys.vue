@@ -106,6 +106,7 @@
       </table>
     </div>
     <div class="alert alert-info">⚠️<strong>注意</strong>：由于组件的使用<code>input</code>，同时支持原有属性的配置</div>
+    <select-picker search multiple :dropdown-data="testData" v-model="testModel" @changeSelect="changeTest" />
   </div>
 </template>
 
@@ -128,7 +129,9 @@ export default {
       dropdownData: [{text: 'Vue', value: 'vue'}, {text: 'React', value: 'react', disabled: true}, {text: 'Angular', value: 'angular'}, {text: 'jQuery', value: 'jquery', disabled: false}],
       noDefaultValue: '',
       defaultValue: 'Vue',
-      multipleValue: []
+      multipleValue: [],
+      testData: [1, 2, 3, 4, 5],
+      testModel: ''
     }
   },
   mounted () {
@@ -149,6 +152,11 @@ export default {
     },
     changeMultipleValueSelect: function (data, text) {
       this.multipleValue = text
+      this.consoleInfo(data)
+    },
+    changeTest (data, text) {
+      console.log(text)
+      this.testModel = text
       this.consoleInfo(data)
     }
   }
