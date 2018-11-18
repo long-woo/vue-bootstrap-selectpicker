@@ -74,7 +74,8 @@ function createZIP () {
   archive.pipe(output)
 
   // 添加文件
-  archive.directory(config.build.assetsRoot, false)
+  archive.directory(`${config.build.assetsRoot}/js`, 'js')
+  archive.directory(`${config.build.assetsRoot}/css`, 'css')
   archive.finalize()
 }
 

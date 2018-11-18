@@ -7,7 +7,7 @@
 
 <a href="https://long-woo.github.io/vue-bootstrap-selectpicker/">https://long-woo.github.io/vue-bootstrap-selectpicker</a>
 > 
-> 如果你用过`bootstrap-selectpicker`，在vue项目里想继续使用，`vue-bootstrap-selectpicker`将是一个替代组件
+> 如果你用过`bootstrap-select`，在vue项目里想继续使用，`vue-bootstrap-selectpicker`将是一个替代组件
 
 ![img](https://raw.github.com/long-woo/vue-bootstrap-selectpicker/master/show.gif)
 
@@ -27,7 +27,7 @@ npm i vue-bootstrap-selectpicker # yarn add vue-bootstrap-selectpicker
 
 ``` js
 // 在main.js里面加入以下代码
-import 'vue-bootstrap-selectpicker/css/vue-bootstrap-selectpicker.min.css'
+import 'vue-bootstrap-selectpicker/dist/css/vue-bootstrap-selectpicker.min.css'
 import SelectPicker from 'vue-bootstrap-selectpicker'
 
 Vue.use(SelectPicker)
@@ -38,11 +38,11 @@ Vue.use(SelectPicker)
 ``` html
 <head>
   ...
-  <link ref="stylesheet" href="/vue-bootstrap-selectpicker/css/vue-bootstrap-selectpicker.min.css">
+  <link ref="stylesheet" href="/vue-bootstrap-selectpicker/dist/css/vue-bootstrap-selectpicker.min.css">
 </head>
 <body>
   ...
-  <script src="/vue-bootstrap-selectpicker/js/vue-bootstrap-selectpicker.js"></script>
+  <script src="/vue-bootstrap-selectpicker/dist/js/vue-bootstrap-selectpicker.js"></script>
 </body>
 ```
 
