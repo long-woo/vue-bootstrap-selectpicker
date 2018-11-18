@@ -121,15 +121,18 @@ export default {
       }
     }
   },
-  // watch: {
-  //   chooseData (value) {
-  //     this.chooseText = value.reduce((prevValue, currentValue) => {
-  //       prevValue.push(currentValue.text || currentValue)
+  watch: {
+    chooseData (value) {
+      const chooseText = value.reduce((prevValue, currentValue) => {
+        prevValue.push(currentValue.text || currentValue)
 
-  //       return prevValue
-  //     }, [])
-  //   }
-  // },
+        return prevValue
+      }, [])
+
+      this.chooseText = chooseText.toString()
+      this.$emit('changeSelect', this.chooseData, this.chooseText)
+    }
+  },
   mounted () {
     this.initSelect()
   },
@@ -183,8 +186,8 @@ export default {
     chooseItem (item, itemIndex) {
       if (item.disabled || !this.isOpen) return
 
-      const itemText = item.text || item
-      const index = this.chooseData.findIndex((value) => (value.text || value) === itemText)
+      const itemText = (item.text || item).toString()
+      const index = this.chooseData.findIndex((value) => (value.text || value).toString() === itemText)
 
       if (!this.multiple) {
         this.isOpen = false
@@ -193,36 +196,19 @@ export default {
         index > -1 ? this.chooseData.splice(index, 1) : this.chooseData.push(item)
       }
 
-      const chooseText = this.chooseData.reduce((prevValue, currentValue) => {
-        const value = currentValue.text || currentValue
-
-        prevValue.push(value)
-
-        return prevValue
-      }, [])
-
-      this.chooseText = chooseText.toString()
-
       this.activeIndex = itemIndex
-      this.$emit('changeSelect', this.chooseData, this.chooseText)
     },
 
     // 搜索，根据输入的关键字帅选
     _dropdownInput (value) {
       let newValue = this.dropdownData
 
-      this.chooseText = value
-
-      value = value.toLowerCase()
-
       if (value) {
         newValue = newValue.reduce((prevValue, currentValue) => {
-          let data = currentValue.text || currentValue
+          let text = (currentValue.text || currentValue).toString().toLowerCase() // 修复数字类型的选项问题 https://github.com/long-woo/vue-bootstrap-selectpicker/issues/2
+          const index = value.split(/,/g).findIndex(v => (v.text || v).toString() === text)
 
-          // 修复数字类型的选项问题 https://github.com/long-woo/vue-bootstrap-selectpicker/issues/2
-          data = data.toString().toLowerCase()
-
-          if (data.includes(value) || (this.multiple && value.includes(data))) {
+          if (text.includes(value.toLowerCase()) || (this.multiple && index > -1)) {
             prevValue.push(currentValue)
           }
 
@@ -230,9 +216,10 @@ export default {
         }, [])
       }
 
-      // if (this.multiple) {
-      //   this.chooseData = value.split(/,/g)
-      // }
+      if (this.multiple) {
+        this.chooseData = value ? value.split(/,/g) : []
+      }
+
       this.filterData = newValue
       this.activeIndex = -1
       this.showDropdown()
@@ -329,6 +316,7 @@ export default {
 
 .bootstrap-select.disabled .dropdown-toggle:after {
   border-bottom-color: #b3b8bd;
+  border-top-color: #b3b8bd;
 }
 
 .dropdown-menu .dropdown-item.checked:after {
@@ -340,5 +328,9 @@ export default {
   float: right;
   margin-right: -0.875rem;
   transform: rotate(45deg);
+}
+
+.bootstrap-select [disabled] {
+  cursor: not-allowed;
 }
 </style>
