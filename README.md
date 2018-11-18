@@ -5,8 +5,8 @@
 [![NPM LICENSE](https://img.shields.io/npm/l/vue-bootstrap-selectpicker.svg)](https://github.com/long-woo/vue-bootstrap-selectpicker/blob/master/LICENSE)
 [![NPM DOWNLOAD](https://img.shields.io/npm/dm/vue-bootstrap-selectpicker.svg)](https://www.npmjs.com/package/vue-bootstrap-selectpicker)
 
-> vue-bootstrap-selectpicker组件
->
+<a href="https://long-woo.github.io/vue-bootstrap-selectpicker/">https://long-woo.github.io/vue-bootstrap-selectpicker</a>
+> 
 > 如果你用过`bootstrap-selectpicker`，在vue项目里想继续使用，`vue-bootstrap-selectpicker`将是一个替代组件
 
 ![img](https://raw.github.com/long-woo/vue-bootstrap-selectpicker/master/show.gif)
@@ -46,7 +46,7 @@ Vue.use(SelectPicker)
 </body>
 ```
 
-> 示例 <a traget="_blank" href="https://long-woo.github.io/vue-bootstrap-selectpicker/">更多...</a>
+> 示例 <a href="https://long-woo.github.io/vue-bootstrap-selectpicker/">更多...</a>
 
 ``` html
 <select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" />
