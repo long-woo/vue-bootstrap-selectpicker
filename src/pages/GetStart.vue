@@ -58,6 +58,9 @@
                 <li class="nav-item">
                   <a class="nav-link">is-dropdown</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link">placement</a>
+                </li>
               </ul>
             </li>
             <li class="nav-item">

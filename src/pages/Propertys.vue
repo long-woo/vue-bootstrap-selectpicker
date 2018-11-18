@@ -84,6 +84,12 @@
       <select-picker placeholder="请选择..." :is-dropdown="true" :dropdown-data="baseDropdownData" v-model="noDefaultValue" @changeSelect="changeNoValueSelect" />
       <pre><code class="language-html">&lt;select-picker :is-dropdown="true" /></code></pre>
     </div>
+    <h4>placement</h4>
+    <div>
+      <p>是否在组件渲染完成，显示下拉项</p>
+      <select-picker placeholder="请选择..." placement="top" :dropdown-data="baseDropdownData" v-model="noDefaultValue" @changeSelect="changeNoValueSelect" />
+      <pre><code class="language-html">&lt;select-picker placement="top" /></code></pre>
+    </div>
     <h4>Propertys</h4>
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
@@ -106,7 +112,6 @@
       </table>
     </div>
     <div class="alert alert-info">⚠️<strong>注意</strong>：由于组件的使用<code>input</code>，同时支持原有属性的配置</div>
-    <select-picker search multiple :dropdown-data="testData" v-model="testModel" @changeSelect="changeTest" />
   </div>
 </template>
 
@@ -123,15 +128,14 @@ export default {
         {name: 'multiple', type: 'Boolean', value: 'false', remark: '是否允许多选'},
         {name: 'search', type: 'Boolean', value: 'false', remark: '是否允许搜索，当设置为<code>true</code>时，会把html原有<code>readonly</code>属性设置为<code>false</code>'},
         {name: 'size', type: 'Number', value: '0', remark: '下拉项的可视数，超过设置的值将显示滚动条'},
-        {name: 'is-dropdown', type: 'Boolean', value: 'false', remark: '是否在组件渲染完成，显示下拉项'}
+        {name: 'is-dropdown', type: 'Boolean', value: 'false', remark: '是否在组件渲染完成，显示下拉项'},
+        {name: 'placement', type: 'String', value: '', remark: '下拉框显示位置，仅支持<code>bottom</code>、<code>top</code>两个值。如果不设置任何值时，自动计算；否则以设置的值为准'}
       ],
       baseDropdownData: ['Vue', 'React', 'Angular', 'jQuery'],
       dropdownData: [{text: 'Vue', value: 'vue'}, {text: 'React', value: 'react', disabled: true}, {text: 'Angular', value: 'angular'}, {text: 'jQuery', value: 'jquery', disabled: false}],
       noDefaultValue: '',
       defaultValue: 'Vue',
-      multipleValue: [],
-      testData: [1, 2, 3, 4, 5],
-      testModel: ''
+      multipleValue: []
     }
   },
   mounted () {
@@ -152,11 +156,6 @@ export default {
     },
     changeMultipleValueSelect: function (data, text) {
       this.multipleValue = text
-      this.consoleInfo(data)
-    },
-    changeTest (data, text) {
-      console.log(text)
-      this.testModel = text
       this.consoleInfo(data)
     }
   }

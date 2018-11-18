@@ -63,7 +63,10 @@ export default {
     dropdownData: Array,
 
     // 默认值，支持Array和String
-    value: [Array, String]
+    value: [Array, String],
+
+    // 显示位置，仅支持`top`和`bootom`。如果没有设置，会根据页面高度计算；否则将以该值为准
+    placement: String
   },
   computed: {
     // 如果配置项全部为`disabled`，禁止方向键选择
@@ -146,6 +149,7 @@ export default {
       const dropdownRect = this.$refs.dropdownItemBox.getBoundingClientRect()
       const dropdownItemHeight = this.$refs.dropdownItemBox.firstChild.offsetHeight
       const fontSize = parseFloat(window.getComputedStyle(document.body, null).fontSize)
+      let upShow = (dropdownRect.bottom + window.scrollY) > document.body.clientHeight // 计算下拉框显示位置
 
       // 如果设置了`size`（可视数），将修改dropdown的可视高度
       if (this.size) {
@@ -155,7 +159,12 @@ export default {
         this.$refs.dropdownItemBox.style.height = `${height}rem`
       }
 
-      this.upShow = (dropdownRect.bottom + window.scrollY) > document.body.clientHeight
+      // 如果设置了显示位置，以该值为准
+      if (this.placement) {
+        upShow = this.placement === 'top'
+      }
+
+      this.upShow = upShow
       this.dropdownRect = dropdownRect
 
       // 监听点击事件，点击组件外，则隐藏下拉
