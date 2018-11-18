@@ -65,7 +65,7 @@ export default {
     // 默认值，支持Array和String
     value: [Array, String],
 
-    // 显示位置，仅支持`top`和`bootom`。如果没有设置，会根据页面高度计算；否则将以该值为准
+    // 显示位置，仅支持`top`和`bottom`。如果没有设置，会根据页面高度计算；否则将以该值为准
     placement: String
   },
   computed: {
