@@ -7,7 +7,20 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  metaInfo () {
+    return {
+      title: 'vue-bootstrap-selectpicker',
+      titleTemplate: '%s | vue-bootstrap-selectpicker',
+      meta: [{
+        name: 'keyword',
+        content: 'vue-bootstrap-selectpicker, vue, bootstrap, bootstrap-vue, bootstrap-slect, bootstrap-picker, vue-select, vue-picker, vue选择组件, vue下拉选择组件, vue选择插件, vue下啦选择插件, 组件, 插件'
+      }, {
+        name: 'description',
+        content: 'vue-bootstrap-selectpicker是基于vue和bootstrap的下拉选择组件（框）。功能类似bootstrap-select插件的简化版，在vue中的实现'
+      }]
+    }
+  }
 }
 </script>
 

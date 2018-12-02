@@ -1,14 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import VueMeta from 'vue-meta'
 
 Vue.use(Router)
+Vue.use(VueMeta)
 
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'Home',
-      component: () => import('@/pages/Home')
+      component: () => import('@/pages/Home'),
+      meta: {
+        title: '首页'
+      }
     },
     {
       path: '/getstart',
