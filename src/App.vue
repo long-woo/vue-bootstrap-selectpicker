@@ -13,6 +13,9 @@ export default {
       title: 'vue-bootstrap-selectpicker',
       titleTemplate: '%s | vue-bootstrap-selectpicker',
       meta: [{
+        name: 'baidu-site-verification',
+        content: 'S3rw3XE78b'
+      }, {
         name: 'keyword',
         content: 'vue-bootstrap-selectpicker, vue, bootstrap, bootstrap-vue, bootstrap-slect, bootstrap-picker, vue-select, vue-picker, vue选择组件, vue下拉选择组件, vue选择插件, vue下啦选择插件, 组件, 插件'
       }, {
