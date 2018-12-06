@@ -133,7 +133,7 @@ export default {
       }, [])
 
       this.chooseText = chooseText.toString()
-      this.$emit('changeSelect', this.chooseData, this.chooseText)
+      this.$emit('change-select', this.chooseData, this.chooseText)
     }
   },
   mounted () {
