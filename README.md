@@ -49,7 +49,7 @@ Vue.use(SelectPicker)
 > 示例 <a href="https://long-woo.github.io/vue-bootstrap-selectpicker/">更多...</a>
 
 ``` html
-<select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" />
+<select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @change="changeSelect" />
 ```
 
 ``` js
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     ...
-    changeSelect (data, text) {
+    changeSelect ({data, text}) {
       console.log(data)
       this.defaultSelectText = text
     }
