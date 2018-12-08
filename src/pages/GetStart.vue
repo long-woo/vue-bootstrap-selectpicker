@@ -67,7 +67,10 @@
               <router-link class="nav-link nav-item-title" to="/getstart/events" :class="{'active': $route.name === 'Events'}">事件</router-link>
               <ul class="nav flex-column nav-sub-item" v-show="$route.name === 'Events'">
                 <li class="nav-item">
-                  <a class="nav-link">changeSelect</a>
+                  <a class="nav-link">input</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link">change</a>
                 </li>
               </ul>
             </li>

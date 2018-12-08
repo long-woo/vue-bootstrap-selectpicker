@@ -133,9 +133,10 @@ export default {
       }, [])
 
       this.chooseText = chooseText.toString()
-      this.$emit('change-select', {
-        choseData: this.chooseData, 
-        choseText: this.chooseText
+      // 修复在`in-dom template`中，事件失效问题。https://github.com/long-woo/vue-bootstrap-selectpicker/issues/3
+      this.$emit('change', {
+        data: this.chooseData,
+        text: this.chooseText
       })
     }
   },

@@ -25,7 +25,7 @@ Vue.use(SelectPicker)
     </div>
     <h4>简单示例</h4>
     <div>
-      <pre><code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @changeSelect="changeSelect" /></code></pre>
+      <pre><code class="language-html">&lt;select-picker :dropdown-data="dropdownData" placeholder="请选择..." v-model="defaultSelectText" @change="changeSelect" /></code></pre>
       <pre><code class="language-js">...
 data () {
   return {
@@ -36,7 +36,7 @@ data () {
 },
 methods: {
   ...
-  changeSelect (data, text) {
+  changeSelect ({data, text}) {
     console.log(data)
     this.defaultSelectText = text
   }
