@@ -5,7 +5,7 @@
     </div>
     <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height }">
       <a class="dropdown-item" ref="dropdownItem" href="javascript:;" :class="{ 'disabled': item.disabled,
-                  'checked':  multiple && (chooseText.indexOf(item.text || item) > -1),
+                  'checked':  multiple && value && (value.indexOf(item.text || item) > -1),
                   'active':  (activeIndex === index) && !item.disabled }" v-for="(item, index) in filterData" :key="index" @click="chooseItem(item, index)">{{ item.text || item }}</a>
       <a class="dropdown-item disabled" v-show="!filterData.length">{{emptyText}}</a>
     </div>
@@ -19,7 +19,6 @@ export default {
     return {
       isOpen: this.isDropdown,
       filterData: this.dropdownData,
-      chooseText: this.value,
       chooseData: [],
       activeIndex: -1,
       arrowKey: '',
@@ -55,7 +54,7 @@ export default {
 
     // 可视数，超过将显示滚动条
     size: {
-      type: Number,
+      type: [Number, String],
       default: 0
     },
 
@@ -127,17 +126,21 @@ export default {
   watch: {
     chooseData (value) {
       const chooseText = value.reduce((prevValue, currentValue) => {
-        prevValue.push(currentValue.text || currentValue)
+        const text = currentValue.text || currentValue
 
+        prevValue.push(text)
         return prevValue
       }, [])
 
-      this.chooseText = chooseText.toString()
       // 修复在`in-dom template`中，事件失效问题。https://github.com/long-woo/vue-bootstrap-selectpicker/issues/3
       this.$emit('change', {
         data: this.chooseData,
-        text: this.chooseText
+        text: chooseText.toString()
       })
+    },
+
+    dropdownData (value) {
+      this.filterData = value
     }
   },
   mounted () {
@@ -200,7 +203,7 @@ export default {
       if (item.disabled || !this.isOpen) return
 
       const itemText = (item.text || item).toString()
-      const index = this.chooseData.findIndex((value) => (value.text || value).toString() === itemText)
+      const index = this.chooseData.findIndex(value => (value.text || value).toString() === itemText)
 
       if (!this.multiple) {
         this.isOpen = false
@@ -237,7 +240,13 @@ export default {
       this.activeIndex = -1
       this.showDropdown()
       this.$emit('input', value)
+      console.log(this.value, value)
+      // if (this.value !== value) {
+      //   this.$emit('change', {data: this.chooseData, text: value})
+      // }
     },
+
+    // 初始化
 
     // 方向键上、下
     _selectArrow (arrow) {

@@ -90,6 +90,7 @@
       <select-picker placeholder="请选择..." placement="top" :dropdown-data="baseDropdownData" v-model="noDefaultValue" @change="changeNoValueSelect" />
       <pre><code class="language-html">&lt;select-picker placement="top" /></code></pre>
     </div>
+    <select-picker placeholder="输入关键字搜索..." search multiple :dropdown-data="baseDropdownData" v-model="testValue" @change="changeTest" />
     <h4>Propertys</h4>
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
@@ -135,7 +136,8 @@ export default {
       dropdownData: [{text: 'Vue', value: 'vue'}, {text: 'React', value: 'react', disabled: true}, {text: 'Angular', value: 'angular'}, {text: 'jQuery', value: 'jquery', disabled: false}],
       noDefaultValue: '',
       defaultValue: 'Vue',
-      multipleValue: []
+      multipleValue: [],
+      testValue: ''
     }
   },
   mounted () {
@@ -146,17 +148,20 @@ export default {
       data = JSON.stringify(data)
       console.info(`%c结果%c：%c${data}`, 'color: #47B784;', 'color: #000;', 'background-color: #d1ecf1; border-color: #d1ecf1; color: #0c5460; border-radius: 0.25rem; padding: 0.25rem 0.5rem;')
     },
-    changeSelect: function ({data, text}) {
+    changeSelect ({data, text}) {
       this.defaultValue = text
       this.consoleInfo(data)
     },
-    changeNoValueSelect: function ({data, text}) {
+    changeNoValueSelect ({data, text}) {
       this.noDefaultValue = text
       this.consoleInfo(data)
     },
-    changeMultipleValueSelect: function ({data, text}) {
+    changeMultipleValueSelect ({data, text}) {
       this.multipleValue = text
       this.consoleInfo(data)
+    },
+    changeTest ({data, text}) {
+      this.testValue = text
     }
   }
 }
