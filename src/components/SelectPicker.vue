@@ -1,6 +1,9 @@
 <template>
   <div class="dropdown bootstrap-select" :class="{ 'dropup': upShow, 'show': isOpen, 'disabled': ($attrs.disabled || $attrs.disabled === '') }">
-    <div class="dropdown-toggle">
+    <div class="dropdown-toggle d-flex">
+      <!-- <div class="dropdown-badges">
+        <span :class="['badge badge-pill', `badge-${badge}`]">{{value}}</span>
+      </div> -->
       <input class="form-control" type="text" :readonly="!search" :value="value" v-bind="$attrs" v-on="listeners">
     </div>
     <div class="dropdown-menu" ref="dropdownItemBox" :class="{ 'visibility': !dropdownRect.height }">
@@ -66,6 +69,12 @@ export default {
 
     // 显示位置，仅支持`top`和`bottom`。如果没有设置，会根据页面高度计算；否则将以该值为准
     placement: String
+
+    // 多选时，badge类型（primary、secondary、success、danger、warning、info、light、dark）
+    // badge: {
+    //   type: String,
+    //   default: 'primary'
+    // }
   },
   computed: {
     // 如果配置项全部为`disabled`，禁止方向键选择
@@ -245,12 +254,17 @@ export default {
       }
 
       this.filterData = newValue
-      this.activeIndex = -1
+      this.activeIndex = 0
       this.showDropdown()
       this.$emit('input', value)
     },
 
-    // 初始化
+    // 初始化chooseData
+    // _initChooseData () {
+    // const value = this.value
+    // const data = this.dr
+
+    // },
 
     // 方向键上、下
     _selectArrow (arrow) {

@@ -90,7 +90,7 @@
       <select-picker placeholder="请选择..." placement="top" :dropdown-data="baseDropdownData" v-model="noDefaultValue" @change="changeNoValueSelect" />
       <pre><code class="language-html">&lt;select-picker placement="top" /></code></pre>
     </div>
-    <select-picker placeholder="输入关键字搜索..." search multiple :dropdown-data="baseDropdownData" v-model="testValue" @change="changeTest" />
+    <!-- <select-picker placeholder="输入关键字搜索..." search multiple :dropdown-data="baseDropdownData" v-model="testValue" @change="changeTest" /> -->
     <h4>Propertys</h4>
     <div class="table-responsive">
       <table class="table table-bordered table-striped">
