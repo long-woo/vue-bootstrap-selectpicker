@@ -96,10 +96,18 @@ export default {
           }
         },
 
+        blur: event => {
+
+        },
+
         input: event => {
           const value = event.target.value
 
           this._dropdownInput(value)
+        },
+
+        change: event => {
+          this.$emit('change', {data: this.chooseData, text: this.value})
         },
 
         keydown: event => {
@@ -240,10 +248,6 @@ export default {
       this.activeIndex = -1
       this.showDropdown()
       this.$emit('input', value)
-      console.log(this.value, value)
-      // if (this.value !== value) {
-      //   this.$emit('change', {data: this.chooseData, text: value})
-      // }
     },
 
     // 初始化
