@@ -20,7 +20,7 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const env = require('../config/prod.env')
 const {logInfo, logSuccess, logError} = require('./console')
 const packageInfo = require('../package.json')
-const GitHubPushlish = require('./publish/github-releases')
+const GitHubPublish = require('./publish/github-releases')
 
 const spinner = ora('building for component...')
 
@@ -46,10 +46,10 @@ function createZIP () {
     let fileSize = archive.pointer()
 
     fileSize = fileSize.toString().length > 6 ? `${parseFloat(fileSize / 1024 / 1024).toFixed(2)} M` : `${parseFloat(fileSize / 1024).toFixed(2)} KB`
-    logInfo(`File size ${fileSize}.\n\nupading ${fileName} to github release draft...`)
+    logInfo(`File size ${fileSize}.\n\nuploading ${fileName} to github release draft...`)
 
     // 上传到github release draft
-    const publishGH = new GitHubPushlish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
+    const publishGH = new GitHubPublish({ owner: packageInfo.repository.owner, project: packageInfo.name, version: packageInfo.version})
     const draft = await publishGH.getReleaseDraft()
 
     if (!draft.id) {
@@ -74,8 +74,8 @@ function createZIP () {
   archive.pipe(output)
 
   // 添加文件
-  archive.directory(`${config.build.assetsRoot}/js`, 'js')
-  archive.directory(`${config.build.assetsRoot}/css`, 'css')
+  archive.directory(`${config.build.assetsRoot}/js/`, 'js')
+  archive.directory(`${config.build.assetsRoot}/css/`, 'css')
   archive.finalize()
 }
 
