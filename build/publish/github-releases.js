@@ -30,6 +30,7 @@ class GitHubPublish {
   async getReleaseDraft () {
     logInfo(`检查${this.project}是否创建${this.version}的draft...`)
     const path = `/repos/${this.owner}/${this.project}/releases?access_token=${this.token}`
+    console.log(path)
     let { code, data, message } = await GitHubPublish[_request](path)
 
     if (code !== 200) {
@@ -114,6 +115,7 @@ class GitHubPublish {
             if (data.message) {
               json.code = 400
               json.message = data.message
+
               reject(json)
               return
             }
