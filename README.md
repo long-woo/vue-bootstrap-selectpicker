@@ -6,8 +6,6 @@
 [![NPM DOWNLOAD](https://img.shields.io/npm/dm/vue-bootstrap-selectpicker.svg)](https://www.npmjs.com/package/vue-bootstrap-selectpicker)
 
 <a href="https://long-woo.github.io/vue-bootstrap-selectpicker/">https://long-woo.github.io/vue-bootstrap-selectpicker</a>
-> 
-> 如果你用过`bootstrap-select`，在vue项目里想继续使用，`vue-bootstrap-selectpicker`将是一个替代组件
 
 ![img](https://raw.github.com/long-woo/vue-bootstrap-selectpicker/master/show.gif)
 
