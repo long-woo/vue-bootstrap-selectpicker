@@ -1,7 +1,7 @@
 {
   "name": "vue-bootstrap-selectpicker",
   "version": "1.0.7",
-  "description": "Vue component---vue-bootstrap-selectpicker",
+  "description": "一个使用 Bootstrap UI 风格的 Vue 下拉选择组件",
   "author": "long.woo <longwunet@outlook.com>",
   "license": "MIT",
   "main": "dist/js/vue-bootstrap-selectpicker.min.js",
@@ -94,6 +94,7 @@
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.1.11",
     "webpack-merge": "^4.1.0"
   },

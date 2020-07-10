@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
       <div class="col-md-3 align-self-start pt-3 sticky-top bg-white">
         <a class="navbar-brand text-secondary" href="https://long-woo.github.io/vue-bootstrap-selectpicker">vue-bootstrap-selecticker</a>

@@ -1,5 +1,7 @@
 # vue-bootstrap-selectpicker
 
+一个使用 Bootstrap UI 风格的 Vue 下拉选择组件。
+
 [![BUILD STATUS](https://travis-ci.org/long-woo/vue-bootstrap-selectpicker.svg?branch=master)](https://travis-ci.org/long-woo/vue-bootstrap-selectpicker)
 [![NPM VERSION](https://img.shields.io/npm/v/vue-bootstrap-selectpicker.svg?style=flat)](https://www.npmjs.com/package/vue-bootstrap-selectpicker)
 [![NPM LICENSE](https://img.shields.io/npm/l/vue-bootstrap-selectpicker.svg)](https://github.com/long-woo/vue-bootstrap-selectpicker/blob/master/LICENSE)

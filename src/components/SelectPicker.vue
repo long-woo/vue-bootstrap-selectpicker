@@ -67,17 +67,17 @@ export default {
     // 默认值，支持Array和String
     value: [Array, String],
 
-    // 显示位置，仅支持`top`和`bottom`。如果没有设置，会根据页面高度计算；否则将以该值为准
+    // 显示位置，仅支持 `top` 和 `bottom`。如果没有设置，会根据页面高度计算；否则将以该值为准
     placement: String
 
-    // 多选时，badge类型（primary、secondary、success、danger、warning、info、light、dark）
+    // 多选时，badge类型（`primary`、`secondary`、`success`、`danger`、`warning`、`info`、`light`、`dark`）
     // badge: {
     //   type: String,
     //   default: 'primary'
     // }
   },
   computed: {
-    // 如果配置项全部为`disabled`，禁止方向键选择
+    // 如果配置项全部为 `disabled`，禁止方向键选择
     disabledArrow () {
       const disabledCount = this.filterData.reduce((prevValue, currentValue) => {
         if (currentValue.disabled) prevValue++
@@ -149,7 +149,7 @@ export default {
         return prevValue
       }, [])
 
-      // 修复在`in-dom template`中，事件失效问题。https://github.com/long-woo/vue-bootstrap-selectpicker/issues/3
+      // 修复在 `in-dom template` 中，事件失效问题。https://github.com/long-woo/vue-bootstrap-selectpicker/issues/3
       this.$emit('change', {
         data: this.chooseData,
         text: chooseText.toString()
@@ -175,7 +175,7 @@ export default {
       const fontSize = parseFloat(window.getComputedStyle(document.body, null).fontSize)
       let upShow = (dropdownRect.bottom + window.scrollY) > document.body.clientHeight // 计算下拉框显示位置
 
-      // 如果设置了`size`（可视数），将修改dropdown的可视高度
+      // 如果设置了 `size`（可视数），将修改 dropdown 的可视高度
       if (this.size) {
         const size = this.size > this.filterData.length ? this.filterData.length : this.size
         const height = (dropdownItemHeight * size + fontSize + 2) / fontSize
@@ -195,7 +195,7 @@ export default {
       document.addEventListener('click', this.hideDropdown, false)
     },
 
-    // 点击dropdown元素后，显示/隐藏选项列表
+    // 点击 dropdown 元素后，显示/隐藏选项列表
     toggleDropdown () {
       this.isOpen = !this.isOpen
 
@@ -271,7 +271,7 @@ export default {
       let index = this.activeIndex
       const itemCount = this.filterData.length - 1
 
-      // 如果项全部为`disabled`，直接跳出
+      // 如果项全部为 `disabled`，直接跳出
       if (this.disabledArrow) return
 
       if (arrow === 'UP') {
@@ -295,7 +295,6 @@ export default {
       if (index < 0) return
 
       const item = this.filterData[index] || {}
-
       if (item.disabled) this._selectArrow(this.arrowKey)
 
       const currentActiveEl = this.$refs.dropdownItem[index]

@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <canvas ref="cvWave" class="canvas-fluid"></canvas>
     <div class="pt-5">
       <h2 class="home-title">vue-bootstrap-selecticker</h2>
@@ -43,7 +43,7 @@ export default {
       const lingrad1 = ctx.createLinearGradient(0, 0, width, 0)
       const lingrad2 = ctx.createLinearGradient(0, 0, width, 0)
 
-      // requestAnimationFrame兼容性处理
+      // requestAnimationFrame 兼容性处理
       window.requestAnimationFrame = (() => requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
