@@ -9,7 +9,7 @@ const _upload = Symbol('_upload')
 
 /**
  * Publish github release draft
- * 在对应仓库下的release创建一个与package.json的version的draft
+ * 在对应仓库下的 release 创建一个与 package.json 的 version 的 draft
  */
 class GitHubPublish {
   constructor ({ owner = '', project = '', version = '' } = {}) {
